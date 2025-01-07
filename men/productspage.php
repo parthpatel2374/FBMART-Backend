@@ -31,10 +31,17 @@ if (empty($category) || empty($subcategory)) {
 
 // Prepare SQL query
 $stmt = $conn->prepare(
-    "SELECT p.id, p.name, p.description, p.price, sc.name AS subcategory_name, c.name AS category_name
+    "SELECT p.id, p.name, 
+            p.description, 
+            p.price, 
+            sc.name AS subcategory_name, 
+            c.name AS category_name,
+            pi.image_name,
+            pi.image_data
      FROM products p
      INNER JOIN subcategories sc ON p.subcategory_id = sc.id
      INNER JOIN categories c ON sc.category_id = c.id
+     LEFT JOIN product_images pi ON p.id = pi.product_id
      WHERE c.name = ? AND sc.name = ?"
 );
 
@@ -82,9 +89,24 @@ $conn->close();
         // Check if products were found
         if (!empty($products)) {
             foreach ($products as $product) {
+                // Base64 encode image data for inline display
+                $image = !empty($product['image_data']) ? 'data:image/jpeg;base64,' . base64_encode($product['image_data']) : ''; // Can Add Fallback to a placeholder image
+                
                 echo "<div class='card bg-white rounded-lg shadow-lg overflow-hidden transition transform hover:scale-105 w-full max-w-xs'>";
+                // Display the image or image_name if image is not available
+                if ($image) {
+                    echo "<img class='w-full h-48 object-cover' src='{$image}' alt='{$product['product_name']}'>";
+                } else {
+                    echo "<div class='text-center text-gray-500 mt-4'>{$product['image_name']}</div>";
+                }
+                echo "<div class='p-4'>";
                 echo "<h3 class='text-lg font-bold text-gray-700 mt-4 text-center'>{$product['name']}</h3>";
                 echo "<div class='text-lg font-bold text-gray-800 mt-2 text-center'>₹ {$product['price']}</div>";
+                // View Details button and hidden description
+                echo "<button onclick='toggleDescription(this)' class='bg-blue-500 text-white px-4 py-2 rounded-lg mt-4 hover:bg-blue-600 transition'>View Details</button>";
+                echo "<div class='product-description hidden mt-4 text-sm text-gray-600 text-center'>{$product['description']}</div>";
+    
+                echo "</div>";
                 echo "</div>";
             }
         } else {
@@ -92,6 +114,27 @@ $conn->close();
         }
         ?>
     </div>
+    <script>
+        // Function to toggle visibility of the product description
+        function toggleDescription(button) {
+            // Get all visible descriptions and hide them
+            const allDescriptions = document.querySelectorAll('.product-description:not(.hidden)');
+            allDescriptions.forEach(description => {
+                description.classList.add('hidden');
+                description.previousElementSibling.textContent = 'View Details';
+            });
+
+            // Toggle the clicked product's description
+            const description = button.nextElementSibling;
+            if (description.classList.contains('hidden')) {
+                description.classList.remove('hidden');
+                button.textContent = 'Hide Details';
+            } else {
+                description.classList.add('hidden');
+                button.textContent = 'View Details';
+            }
+        }
+    </script>
 </body>
 
 </html>
