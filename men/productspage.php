@@ -15,14 +15,13 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-// Get the current URL path
-$url_path = $_SERVER['REQUEST_URI'];
-$path_parts = explode('/', $url_path);
-
-// Get category from URL
-$category = isset($path_parts[2]) ? $path_parts[2] : '';
-$subcategory = isset($_GET['subcategory']) ? $_GET['subcategory'] : '';
-
+// Check if the form was submitted and the variable is set
+if (isset($_POST['category']) && isset($_POST['subcategory'])) {
+    $category = $_POST['category'];
+    $subcategory = $_POST['subcategory'];
+} else {
+    echo "No category and subcategory selected.";
+}
 // Ensure category and subcategory are set
 if (empty($category) || empty($subcategory)) {
     echo "<p class='text-gray-500 text-center col-span-full'>Category and Subcategory are required!</p>";
@@ -90,51 +89,39 @@ $conn->close();
         if (!empty($products)) {
             foreach ($products as $product) {
                 // Base64 encode image data for inline display
-                $image = !empty($product['image_data']) ? 'data:image/jpeg;base64,' . base64_encode($product['image_data']) : ''; // Can Add Fallback to a placeholder image
+                $image = !empty($product['image_data']) ? 'data:image/jpeg;base64,' . base64_encode($product['image_data']) : 'https://via.placeholder.com/150'; // Can Add Fallback to a placeholder image
                 
                 echo "<div class='card bg-white rounded-lg shadow-lg overflow-hidden transition transform hover:scale-105 w-full max-w-xs'>";
                 // Display the image or image_name if image is not available
                 if ($image) {
-                    echo "<img class='w-full h-48 object-cover' src='{$image}' alt='{$product['product_name']}'>";
+                    echo "<img class='w-full h-48 object-cover' src='{$image}' alt='{$product['name']}'>";
                 } else {
                     echo "<div class='text-center text-gray-500 mt-4'>{$product['image_name']}</div>";
                 }
                 echo "<div class='p-4'>";
                 echo "<h3 class='text-lg font-bold text-gray-700 mt-4 text-center'>{$product['name']}</h3>";
                 echo "<div class='text-lg font-bold text-gray-800 mt-2 text-center'>₹ {$product['price']}</div>";
-                // View Details button and hidden description
-                echo "<button onclick='toggleDescription(this)' class='bg-blue-500 text-white px-4 py-2 rounded-lg mt-4 hover:bg-blue-600 transition'>View Details</button>";
+
+                // Form to submit the product details as a POST request
+                echo "<div class='flex justify-center mt-4'>";  // Added a flex container to center the button
+                echo "<form action='product-detail.html' method='POST'>";
+                echo "<input type='hidden' name='category' value='{$category}'>";
+                echo "<input type='hidden' name='subcategory' value='{$subcategory}'>";
+                echo "<input type='hidden' name='product_id' value='{$product['id']}'>";
+                echo "<button type='submit' class='bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition text-center'>View Details</button>";
+                echo "</form>";
+                echo "</div>"; // Close the flex container
+
                 echo "<div class='product-description hidden mt-4 text-sm text-gray-600 text-center'>{$product['description']}</div>";
-    
                 echo "</div>";
                 echo "</div>";
+
             }
         } else {
             echo "<p class='text-gray-500 text-center col-span-full'>No products found for the selected category and subcategory.</p>";
         }
         ?>
     </div>
-    <script>
-        // Function to toggle visibility of the product description
-        function toggleDescription(button) {
-            // Get all visible descriptions and hide them
-            const allDescriptions = document.querySelectorAll('.product-description:not(.hidden)');
-            allDescriptions.forEach(description => {
-                description.classList.add('hidden');
-                description.previousElementSibling.textContent = 'View Details';
-            });
-
-            // Toggle the clicked product's description
-            const description = button.nextElementSibling;
-            if (description.classList.contains('hidden')) {
-                description.classList.remove('hidden');
-                button.textContent = 'Hide Details';
-            } else {
-                description.classList.add('hidden');
-                button.textContent = 'View Details';
-            }
-        }
-    </script>
 </body>
 
 </html>
