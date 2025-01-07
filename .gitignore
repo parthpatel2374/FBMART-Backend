@@ -1,0 +1,70 @@
+footercontent/.DS_Store
+
+# Node.js dependencies (for Tailwind or other frontend tooling)
+# node_modules/
+
+# Tailwind CSS build artifacts
+# *.css.map
+# *.css
+# *.scss.map
+# *.scss
+
+# PHP composer dependencies
+# vendor/
+
+# IDE or Editor specific files
+.vscode/
+.vscode - Copy/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# Operating system specific files
+.DS_Store
+Thumbs.db
+
+# Log files
+*.log
+
+# Cache files
+.cache/
+storage/framework/cache/*
+storage/framework/sessions/*
+storage/framework/views/*
+storage/logs/*
+*.phpunit.result.cache
+
+# Environment configuration
+.env
+.env.local
+.env.*.local
+
+# Backup files
+*.bak
+*.swp
+
+# Uploaded files
+public/uploads/
+uploads/
+
+# Generated documentation
+docs/api/
+docs/
+
+# Ignoring specific build files (if used)
+dist/
+build/
+
+# Other miscellaneous
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+*.pid
+*.seed
+*.pid.lock
+
+# Some developer notes
+fbmart.zip
+Github tips.rtf
+TechStack.rtf
+fbmart.sql
