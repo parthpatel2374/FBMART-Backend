@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Centered 2 Cards</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css"
+        integrity="sha512-5Hs3dF2AEPkpNAR7UiOHba+lRSJNeM2ECkwxUIxC1Q/FLycGTbNapWXB4tP889k5T5Ju8fs4b1P5z/iB4nMfSQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="icon" href="images/FBMart_Final.png">
+    <script src="https://cdn.jsdelivr.net/npm/alpinejs@2.8.2/dist/alpine.min.js" defer></script>
+</head>
+
+<body class="bg-gray-100 ">
+    <header class="bg-gray-400 px-6 flex flex-wrap justify-between items-center h-36 relative">
+        <!-- Logo Section -->
+        <div class="flex items-center">
+            <img src="1(1).png"
+                class="h-28 w-56 sm:h-28 sm:w-64 md:h-32 md:w-64 lg:h-28 lg:w-56 xl:h-28 xl:w-56">
+            <!-- Increased logo sizes -->
+         </div>
+
+        <!-- Search Section -->
+       
+
+        <!-- Mobile Menu Toggle (Hamburger) -->
+        
+
+        <!-- Right Section (Profile and Cart) -->
+        <div class="flex space-x-5  sm:mt-0 items-center  lg:flex">
+
+
+            <!-- Cart Icon -->
+            <a href="cart.html">
+                <div class="flex flex-col items-center">
+                    <i class="fa-solid fa-cart-shopping fa-2xl"></i>
+                </div>
+            </a>
+        </div>
+    </header>
+
+    <div class="max-w-3xl mx-auto p-6">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2  gap-6">
+            <!-- Card 1 -->
+
+            <div
+                class="bg-gradient-to-r from-indigo-100 via-gray-200 to-indigo-100 p-4 rounded-lg shadow-lg transform transition-transform duration-300 hover:scale-105 text-center">
+                <div class="relative">
+                    <img src="/images/mens clothing.jpg" alt="Men Bags" class="w-full h-48 object-contain mb-3">
+                    <div
+                        class="absolute inset-0 bg-gradient-to-t from-gray-900 via-transparent to-transparent opacity-0 hover:opacity-70 transition-opacity duration-300 flex items-end justify-center p-0">
+                        <p class="text-white text-lg font-bold">Explore Men Bags Collection</p>
+                    </div>
+                </div>
+                <h2 class="text-xl font-semibold text-gray-800 mb-3">Men Bags</h2>
+                <a href="menbag.html">
+                    <button
+                        class="bg-indigo-500 text-white font-medium py-2 px-6 rounded-full shadow-md hover:text-black hover:shadow-lg focus:ring-2 focus:ring-indigo-400 focus:outline-none transition-all">
+                        Shop
+                    </button>
+                </a>
+            </div>
+
+
+            <!-- Card 2 -->
+            <div
+                class="bg-gradient-to-r from-pink-100 via-gray-200 to-pink-100 p-4 rounded-lg shadow-lg transform transition-transform duration-300 hover:scale-105 text-center">
+                <div class="relative">
+                    <img src="/images/mens clothing.jpg" alt="Women Bags" class="w-full h-48 object-contain mb-3">
+                    <div
+                        class="absolute inset-0 bg-gradient-to-t from-gray-900 via-transparent to-transparent opacity-0 hover:opacity-70 transition-opacity duration-300 flex items-end justify-center p-0">
+                        <p class="text-white text-lg font-bold">Explore Women Bags Collection</p>
+                    </div>
+                </div>
+                <h2 class="text-xl font-semibold text-gray-800 mb-3">Women Bags</h2>
+                <a href="womenbag.html">
+                    <button
+                        class="bg-pink-500 text-white font-medium py-2 px-6 rounded-full shadow-md hover:text-black hover:shadow-lg focus:ring-2 focus:ring-indigo-400 focus:outline-none transition-all">
+                        Shop
+                    </button>
+                </a>
+            </div>
+
+
+
+
+
+
+        </div>
+    </div>
+</body>
+
+</html>

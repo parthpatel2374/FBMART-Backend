@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Responsive Product Cards and Slider</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .card:hover img {
+            transform: scale(1.05);
+        }
+
+        /* Ensure image height is 50vh for all devices */
+        .slider {
+    display: flex;
+    overflow-x: scroll;
+    scroll-snap-type: x mandatory;
+    gap: 1rem; /* Space between slides */
+    padding: 1rem; /* Optional padding for slider container */
+}
+
+.slide {
+    flex: none;
+    scroll-snap-align: start;
+    width: auto;
+    height: 300px;
+    background-color: #fff;
+    border-radius: 0.5rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+}
+
+.slide img {
+    width: 100%; /* Fit container width */
+    height: 100%; /* Fit container height */
+    object-fit: contain; /* Ensure image fits without cropping */
+    border-radius: 0.5rem; /* Match slide container's rounded corners */
+}
+
+
+
+
+    </style>
+</head>
+
+<body class="bg-gray-100 font-sans min-h-screen flex flex-col items-center">
+
+    <!-- Header -->
+    <div class="w-full flex justify-between px-8 py-4 bg-white shadow-md">
+        <h1 class="text-2xl font-bold text-gray-800">Product Store</h1>
+        <a href="cart.html" class="bg-yellow-400 px-4 py-2 rounded-md hover:bg-green-600 hover:text-white">
+            View Cart
+        </a>
+    </div>
+
+    <!-- Product Cards Grid -->
+   
+
+    <!-- Slider Section -->
+    <div class="slider">
+        <div class="slide  p-4 rounded-lg shadow-md">
+            <img src="https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OHx8bWVuJTIwcHJvZHVjdHN8ZW58MHx8MHx8fDA%3D" alt="Slide 1" class="w-full h-auto rounded-lg">
+            
+        </div>
+        <div class="slide bg-white p-4 rounded-lg shadow-md">
+            <img src="https://images.unsplash.com/photo-1714935101690-f9e9bce595c6?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTF8fG1lbiUyMHByb2R1Y3RzfGVufDB8fDB8fHww" alt="Slide 2" class="w-full h-auto rounded-lg">
+        </div>
+        <div class="slide bg-white p-4 rounded-lg shadow-md">
+            <img src="https://images.unsplash.com/photo-1524738258074-f8125c6a7588?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8N3x8bWVuJTIwcHJvZHVjdHN8ZW58MHx8MHx8fDA%3D" alt="Slide 3" class="w-full h-auto rounded-lg">
+        </div>
+        <div class="slide bg-white p-4 rounded-lg shadow-md">
+            <img src="https://images.unsplash.com/photo-1604368640692-027f44ffb8cf?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTB8fG1lbiUyMHByb2R1Y3RzfGVufDB8fDB8fHww" alt="Slide 3" class="w-full h-auto rounded-lg">
+        </div>
+        <div class="slide bg-white p-4 rounded-lg shadow-md">
+            <img src="https://images.unsplash.com/photo-1603251578711-3290ca1a0187?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTR8fG1lbiUyMHByb2R1Y3RzfGVufDB8fDB8fHww" alt="Slide 3" class="w-full h-auto rounded-lg">
+        </div>
+        <div class="slide bg-white p-4 rounded-lg shadow-md">
+            <img src="https://images.unsplash.com/photo-1722938203650-99afb12419f8?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTh8fG1lbiUyMHByb2R1Y3RzfGVufDB8fDB8fHww" alt="Slide 3" class="w-full h-auto rounded-lg">
+        </div>
+        <div class="slide bg-white p-4 rounded-lg shadow-md">
+            <img src="https://images.unsplash.com/photo-1604368640692-027f44ffb8cf?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTB8fG1lbiUyMHByb2R1Y3RzfGVufDB8fDB8fHww" alt="Slide 3" class="w-full h-auto rounded-lg">
+        </div>
+        <div class="slide bg-white p-4 rounded-lg shadow-md">
+            <img src="https://images.unsplash.com/photo-1519058082700-08a0b56da9b4?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NzF8fG1lbiUyMHByb2R1Y3R8ZW58MHx8MHx8fDA%3D" alt="Slide 3" class="w-full h-auto rounded-lg">
+        </div>
+        <div class="slide bg-white p-4 rounded-lg shadow-md">
+            <img src="https://images.unsplash.com/photo-1491553895911-0055eca6402d?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OTl8fG1lbiUyMHByb2R1Y3R8ZW58MHx8MHx8fDA%3D" alt="Slide 3" class="w-full h-auto rounded-lg">
+        </div>
+    </div>
+    
+</body>
+
+</html>

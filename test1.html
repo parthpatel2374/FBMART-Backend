@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=\, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css"
+        integrity="sha512-5Hs3dF2AEPkpNAR7UiOHba+lRSJNeM2ECkwxUIxC1Q/FLycGTbNapWXB4tP889k5T5Ju8fs4b1P5z/iB4nMfSQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="icon" href="images/FBMart_Final.png">
+    <script src="https://cdn.jsdelivr.net/npm/alpinejs@2.8.2/dist/alpine.min.js" defer></script>
+    <style>
+        /* Container for the slider */
+        /* Global container adjustments */
+        #products-container {
+            gap: 0;
+            /* No gaps between cards */
+        }
+
+        .card img {
+            border-radius: 0;
+            /* Remove any border-radius for a flat layout */
+        }
+
+        .card {
+            margin: 0;
+            /* Ensure no additional space is added between cards */
+        }
+
+        .card h3,
+        .card a {
+            margin: 0;
+            /* Avoid margin conflicts */
+        }
+
+        /* Slider Styling */
+        .slider-container {
+            position: relative;
+            width: 100%;
+            height: 50vh;
+            /* Set the slider height */
+            overflow: hidden;
+        }
+
+        .slider {
+            display: flex;
+            position: relative;
+            width: 100%;
+            height: 100%;
+        }
+
+        .slides {
+            display: flex;
+            width: 100%;
+            animation: slide-animation 24s infinite;
+        }
+
+        .slide {
+            min-width: 100%;
+            position: relative;
+        }
+
+        /* Adjust images to maintain aspect ratio and ensure visibility */
+        .slide img {
+            width: 100%;
+            height: 100%;
+            /* Automatically adjust height based on width */
+            object-fit: contain;
+            /* Ensure the entire image is visible */
+            object-position: center;
+        }
+
+      /* Responsive adjustments for slider height */
+@media screen and (max-width: 600px) {
+    .slider-container {
+        height: 40vh; /* Slightly smaller height for mobile screens */
+    }
+}
+
+@media screen and (min-width: 601px) and (max-width: 1024px) {
+    .slider-container {
+        height: 45vh; /* Balanced height for tablets */
+    }
+}
+
+@media screen and (min-width: 1025px) {
+    .slider-container {
+        height: 50vh; /* Full height for larger screens */
+    }
+}
+
+        /* For larger screens (default behavior) */
+        .slider-container {
+            height: 50vh;
+            /* Default height for desktops */
+        }
+
+
+        @keyframes slide-animation {
+            0% {
+                transform: translateX(0);
+            }
+
+            12.5% {
+                transform: translateX(-100%);
+            }
+
+            25% {
+                transform: translateX(-200%);
+            }
+
+            37.5% {
+                transform: translateX(-300%);
+            }
+
+            50% {
+                transform: translateX(-400%);
+            }
+
+            62.5% {
+                transform: translateX(-500%);
+            }
+
+            75% {
+                transform: translateX(-600%);
+            }
+
+            87.5% {
+                transform: translateX(-700%);
+            }
+
+            100% {
+                transform: translateX(0);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <h1 class="text-2xl font-bold text-gray-800 text-center my-12">Explore Men’s Products</h1>
+
+
+
+    <!-- Men’s Categories Grid (4 Columns, 2 Rows) -->
+    <div class="w-full max-w-screen-2xl mx-auto">
+        <!-- Products Section -->
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-0" id="products-container">
+            <!-- Example Product Cards -->
+            <div class="card bg-white rounded-none shadow-md">
+                <img src="images/mens_clothing_1.jpg" alt="Category 1" class="w-full h-48 object-cover">
+                <div class="text-center p-4">
+                    <h3 class="text-lg font-bold text-gray-700">T-Shirts</h3>
+                    <a href="product-detail.html?product_id=1"
+                        class="block mt-4 text-white bg-blue-500 hover:bg-blue-600 rounded-md py-2 px-4">View
+                        Details</a>
+                </div>
+            </div>
+            <!-- Repeat for 8 cards -->
+            <div class="card bg-white rounded-none shadow-md">
+                <img src="images/mens_clothing_2.jpg" alt="Category 2" class="w-full h-48 object-cover">
+                <div class="text-center p-4">
+                    <h3 class="text-lg font-bold text-gray-700">Jeans</h3>
+                    <a href="product-detail.html?product_id=2"
+                        class="block mt-4 text-white bg-blue-500 hover:bg-blue-600 rounded-md py-2 px-4">View
+                        Details</a>
+                </div>
+            </div>
+            <div class="card bg-white rounded-none shadow-md">
+                <img src="images/mens_clothing_2.jpg" alt="Category 2" class="w-full h-48 object-cover">
+                <div class="text-center p-4">
+                    <h3 class="text-lg font-bold text-gray-700">Jeans</h3>
+                    <a href="product-detail.html?product_id=2"
+                        class="block mt-4 text-white bg-blue-500 hover:bg-blue-600 rounded-md py-2 px-4">View
+                        Details</a>
+                </div>
+            </div>
+            <div class="card bg-white rounded-none shadow-md">
+                <img src="images/mens_clothing_2.jpg" alt="Category 2" class="w-full h-48 object-cover">
+                <div class="text-center p-4">
+                    <h3 class="text-lg font-bold text-gray-700">Jeans</h3>
+                    <a href="product-detail.html?product_id=2"
+                        class="block mt-4 text-white bg-blue-500 hover:bg-blue-600 rounded-md py-2 px-4">View
+                        Details</a>
+                </div>
+            </div>
+            <!-- Add 6 more similar cards here -->
+        </div>
+
+        <!-- Slider Section -->
+        <div class="slider-container w-full mt-4">
+            <div class="slider">
+                <!-- Slider Images -->
+                <div class="slides">
+                    <div class="slide"><img src="images/1.jpg" alt="Product 1"></div>
+                    <div class="slide"><img src="images/2.jpg" alt="Product 2"></div>
+                    <div class="slide"><img src="images/3.jpg" alt="Product 3"></div>
+                    <div class="slide"><img src="images/4.jpg" alt="Product 4"></div>
+                    <div class="slide"><img src="images/5.jpg" alt="Product 5"></div>
+                    <div class="slide"><img src="images/6.jpg" alt="Product 6"></div>
+                    <div class="slide"><img src="images/7.jpg" alt="Product 7"></div>
+                    <div class="slide"><img src="images/8.jpg" alt="Product 8"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+
+
+
+
+    <h1 class="text-2xl font-bold text-gray-800 text-center my-12">Explore Women’s Products</h1>
+
+
+
+    <!-- Men’s Categories Grid (4 Columns, 2 Rows) -->
+    <div class="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-4 gap-6 sm:gap-8 md:gap-10 lg:gap-12 mt-10 mb-8 w-full max-w-screen-2xl px-4 lg:px-8 xl:px-12"
+        id="products-container">
+        <!-- Example Products (Images, Category Titles, and Links) -->
+        <div class="card bg-white rounded-lg shadow-lg overflow-hidden transition transform hover:scale-105">
+            <img src="images/mens_clothing_1.jpg" alt="Category 1" class="w-full h-48 object-cover">
+            <div class="text-center p-4">
+                <h3 class="text-lg font-bold text-gray-700">T-Shirts</h3>
+
+                <!-- View Details Button -->
+                <a href="product-detail.html?product_id=1"
+                    class="block mt-4 text-center text-white bg-blue-500 hover:bg-blue-600 rounded-md py-2 px-4">View
+                    Details</a>
+            </div>
+        </div>
+        <div class="card bg-white rounded-lg shadow-lg overflow-hidden transition transform hover:scale-105">
+            <img src="images/mens_clothing_1.jpg" alt="Category 1" class="w-full h-48 object-cover">
+            <div class="text-center p-4">
+                <h3 class="text-lg font-bold text-gray-700">T-Shirts</h3>
+
+                <!-- View Details Button -->
+                <a href="product-detail.html?product_id=1"
+                    class="block mt-4 text-center text-white bg-blue-500 hover:bg-blue-600 rounded-md py-2 px-4">View
+                    Details</a>
+            </div>
+        </div>
+        <div class="card bg-white rounded-lg shadow-lg overflow-hidden transition transform hover:scale-105">
+            <img src="images/mens_clothing_1.jpg" alt="Category 1" class="w-full h-48 object-cover">
+            <div class="text-center p-4">
+                <h3 class="text-lg font-bold text-gray-700">T-Shirts</h3>
+
+                <!-- View Details Button -->
+                <a href="product-detail.html?product_id=1"
+                    class="block mt-4 text-center text-white bg-blue-500 hover:bg-blue-600 rounded-md py-2 px-4">View
+                    Details</a>
+            </div>
+        </div>
+        <div class="card bg-white rounded-lg shadow-lg overflow-hidden transition transform hover:scale-105">
+            <img src="images/mens_clothing_1.jpg" alt="Category 1" class="w-full h-48 object-cover">
+            <div class="text-center p-4">
+                <h3 class="text-lg font-bold text-gray-700">T-Shirts</h3>
+
+                <!-- View Details Button -->
+                <a href="product-detail.html?product_id=1"
+                    class="block mt-4 text-center text-white bg-blue-500 hover:bg-blue-600 rounded-md py-2 px-4">View
+                    Details</a>
+            </div>
+        </div>
+        <div class="card bg-white rounded-lg shadow-lg overflow-hidden transition transform hover:scale-105">
+            <img src="images/mens_clothing_1.jpg" alt="Category 1" class="w-full h-48 object-cover">
+            <div class="text-center p-4">
+                <h3 class="text-lg font-bold text-gray-700">T-Shirts</h3>
+
+                <!-- View Details Button -->
+                <a href="product-detail.html?product_id=1"
+                    class="block mt-4 text-center text-white bg-blue-500 hover:bg-blue-600 rounded-md py-2 px-4">View
+                    Details</a>
+            </div>
+        </div>
+        <div class="card bg-white rounded-lg shadow-lg overflow-hidden transition transform hover:scale-105">
+            <img src="images/mens_clothing_1.jpg" alt="Category 1" class="w-full h-48 object-cover">
+            <div class="text-center p-4">
+                <h3 class="text-lg font-bold text-gray-700">T-Shirts</h3>
+
+                <!-- View Details Button -->
+                <a href="product-detail.html?product_id=1"
+                    class="block mt-4 text-center text-white bg-blue-500 hover:bg-blue-600 rounded-md py-2 px-4">View
+                    Details</a>
+            </div>
+        </div>
+        <div class="card bg-white rounded-lg shadow-lg overflow-hidden transition transform hover:scale-105">
+            <img src="images/mens_clothing_1.jpg" alt="Category 1" class="w-full h-48 object-cover">
+            <div class="text-center p-4">
+                <h3 class="text-lg font-bold text-gray-700">T-Shirts</h3>
+
+                <!-- View Details Button -->
+                <a href="product-detail.html?product_id=1"
+                    class="block mt-4 text-center text-white bg-blue-500 hover:bg-blue-600 rounded-md py-2 px-4">View
+                    Details</a>
+            </div>
+        </div>
+        <div class="card bg-white rounded-lg shadow-lg overflow-hidden transition transform hover:scale-105">
+            <img src="images/mens_clothing_1.jpg" alt="Category 1" class="w-full h-48 object-cover">
+            <div class="text-center p-4">
+                <h3 class="text-lg font-bold text-gray-700">T-Shirts</h3>
+
+                <!-- View Details Button -->
+                <a href="product-detail.html?product_id=1"
+                    class="block mt-4 text-center text-white bg-blue-500 hover:bg-blue-600 rounded-md py-2 px-4">View
+                    Details</a>
+            </div>
+        </div>
+
+
+    </div>
+
+
+
+
+    <div class="slider-container w-full h-1/2 mt-2 sm:mt-4 md:mt-4 lg:mt-4 xl:mt-4">
+        <div class="slider">
+            <!-- Input controls for navigation -->
+            <input type="radio" name="slider" id="slide-1" checked class="hidden">
+            <input type="radio" name="slider" id="slide-2" class="hidden">
+            <input type="radio" name="slider" id="slide-3" class="hidden">
+            <input type="radio" name="slider" id="slide-4" class="hidden">
+            <input type="radio" name="slider" id="slide-5" class="hidden">
+            <input type="radio" name="slider" id="slide-6" class="hidden">
+            <input type="radio" name="slider" id="slide-7" class="hidden">
+            <input type="radio" name="slider" id="slide-8" class="hidden">
+            <input type="radio" name="slider" id="slide-9" class="hidden">
+            <input type="radio" name="slider" id="slide-10" class="hidden">
+
+            <!-- Slider Images -->
+            <div class="slides">
+                <div class="slide"><img src="images/1.jpg" alt="Product 1" class="w-full h-full object-cover"></div>
+                <div class="slide"><img src="images/2.jpg" alt="Product 2" class="w-full h-full object-cover"></div>
+                <div class="slide"><img src="images/3.jpg" alt="Product 3" class="w-full h-full object-cover"></div>
+                <div class="slide"><img src="images/4.jpg" alt="Product 4" class="w-full h-full object-cover"></div>
+                <div class="slide"><img src="images/5.jpg" alt="Product 5" class="w-full h-full object-cover"></div>
+                <div class="slide"><img src="images/6.jpg" alt="Product 6" class="w-full h-full object-cover"></div>
+                <div class="slide"><img src="images/7.jpg" alt="Product 7" class="w-full h-full object-cover"></div>
+                <div class="slide"><img src="images/8.jpg" alt="Product 8" class="w-full h-full object-cover"></div>
+                <div class="slide"><img src="images/9.jpg" alt="Product 9" class="w-full h-full object-cover"></div>
+                <div class="slide"><img src="images/10.jpg" alt="Product 10" class="w-full h-full object-cover"></div>
+            </div>
+
+
+        </div>
+    </div>
+
+
+
+
+</body>
+
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

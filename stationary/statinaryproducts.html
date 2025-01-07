@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Responsive Cards</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css"
+        integrity="sha512-5Hs3dF2AEPkpNAR7UiOHba+lRSJNeM2ECkwxUIxC1Q/FLycGTbNapWXB4tP889k5T5Ju8fs4b1P5z/iB4nMfSQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="icon" href="images/FBMart_Final.png">
+    <script src="https://cdn.jsdelivr.net/npm/alpinejs@2.8.2/dist/alpine.min.js" defer></script>
+</head>
+
+<body class="bg-gray-100">
+    <header class="bg-gray-400 px-6 flex flex-wrap justify-between items-center h-36 relative">
+        <!-- Logo Section -->
+        <div class="flex items-center">
+            <img src="1(1).png"
+                class="h-28 w-56 sm:h-28 sm:w-64 md:h-32 md:w-64 lg:h-28 lg:w-56 xl:h-28 xl:w-56">
+            <!-- Increased logo sizes -->
+        </div>
+
+        <!-- Search Section -->
+       
+
+        <!-- Mobile Menu Toggle (Hamburger) -->
+        
+
+        <!-- Right Section (Profile and Cart) -->
+        <div class="flex space-x-5  sm:mt-0 items-center  lg:flex">
+
+
+            <!-- Cart Icon -->
+            <a href="cart.html">
+                <div class="flex flex-col items-center">
+                    <i class="fa-solid fa-cart-shopping fa-2xl"></i>
+                </div>
+            </a>
+        </div>
+    </header>
+    <div class="max-w-7xl mx-auto p-6">
+        <!-- Card Container -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6">
+            <!-- Card 1 -->
+            <div
+                class="bg-gradient-to-r from-indigo-100 via-gray-200 to-indigo-100 p-4 rounded-lg shadow-lg transform transition-transform duration-300 hover:scale-105 text-center">
+                <div class="relative">
+                    <img src="/images/mens clothing.jpg" alt="Writing Instruments"
+                        class="w-full h-48 object-contain mb-3">
+                    <div
+                        class="absolute inset-0 bg-gradient-to-t from-gray-900 via-transparent to-transparent opacity-0 hover:opacity-70 transition-opacity duration-300 flex items-end justify-center p-0">
+                        <p class="text-white text-lg font-bold">Writing Instruments</p>
+                    </div>
+                </div>
+                <h2 class="text-xl font-semibold text-gray-800 mb-3">Writing Instruments</h2>
+                <a href="writing.html">
+                    <button
+                        class="bg-indigo-500 text-white font-medium py-2 px-6 rounded-full shadow-md hover:text-black hover:shadow-lg focus:ring-2 focus:ring-indigo-400 focus:outline-none transition-all">
+                        Shop
+                    </button>
+                </a>
+            </div>
+
+            <!-- Card 2 -->
+            <div
+                class="bg-gradient-to-r from-pink-100 via-gray-200 to-pink-100 p-4 rounded-lg shadow-lg transform transition-transform duration-300 hover:scale-105 text-center">
+                <div class="relative">
+                    <img src="/images/mens clothing.jpg" alt="Paper Products" class="w-full h-48 object-contain mb-3">
+                    <div
+                        class="absolute inset-0 bg-gradient-to-t from-gray-900 via-transparent to-transparent opacity-0 hover:opacity-70 transition-opacity duration-300 flex items-end justify-center p-0">
+                        <p class="text-white text-lg font-bold">Paper Products</p>
+                    </div>
+                </div>
+                <h2 class="text-xl font-semibold text-gray-800 mb-3">Paper Products</h2>
+                <a href="paper.html">
+                    <button
+                        class="bg-pink-500 text-white font-medium py-2 px-6 rounded-full shadow-md hover:text-black hover:shadow-lg focus:ring-2 focus:ring-indigo-400 focus:outline-none transition-all">
+                        Shop
+                    </button>
+                </a>
+            </div>
+
+            <!-- Card 3 -->
+            <div
+                class="bg-gradient-to-r from-green-100 via-gray-200 to-green-100 p-4 rounded-lg shadow-lg transform transition-transform duration-300 hover:scale-105 text-center">
+                <div class="relative">
+                    <img src="/images/mens clothing.jpg" alt="Office Supplies" class="w-full h-48 object-contain mb-3">
+                    <div
+                        class="absolute inset-0 bg-gradient-to-t from-gray-900 via-transparent to-transparent opacity-0 hover:opacity-70 transition-opacity duration-300 flex items-end justify-center p-0">
+                        <p class="text-white text-lg font-bold">Office Supplies</p>
+                    </div>
+                </div>
+                <h2 class="text-xl font-semibold text-gray-800 mb-3">Office Supplies</h2>
+                <a href="office.html">
+                    <button
+                        class="bg-green-500 text-white font-medium py-2 px-6 rounded-full shadow-md hover:text-black hover:shadow-lg focus:ring-2 focus:ring-indigo-400 focus:outline-none transition-all">
+                        Shop
+                    </button>
+                </a>
+            </div>
+
+            <!-- Card 4 -->
+            <div
+                class="bg-gradient-to-r from-yellow-100 via-gray-200 to-yellow-100 p-4 rounded-lg shadow-lg transform transition-transform duration-300 hover:scale-105 text-center">
+                <div class="relative">
+                    <img src="/images/mens clothing.jpg" alt="Cutting Tools" class="w-full h-48 object-contain mb-3">
+                    <div
+                        class="absolute inset-0 bg-gradient-to-t from-gray-900 via-transparent to-transparent opacity-0 hover:opacity-70 transition-opacity duration-300 flex items-end justify-center p-0">
+                        <p class="text-white text-lg font-bold">Cutting Tools</p>
+                    </div>
+                </div>
+                <h2 class="text-xl font-semibold text-gray-800 mb-3">Cutting Tools</h2>
+                <a href="cuttingtools.html">
+                    <button
+                        class="bg-yellow-500 text-white font-medium py-2 px-6 rounded-full shadow-md hover:text-black hover:shadow-lg focus:ring-2 focus:ring-indigo-400 focus:outline-none transition-all">
+                        Shop
+                    </button>
+                </a>
+            </div>
+
+            <!-- Card 5 -->
+            <div
+                class="bg-gradient-to-r from-green-100 via-gray-200 to-green-100 p-4 rounded-lg shadow-lg transform transition-transform duration-300 hover:scale-105 text-center">
+                <div class="relative">
+                    <img src="/images/mens clothing.jpg" alt="Adhesives" class="w-full h-48 object-contain mb-3">
+                    <div
+                        class="absolute inset-0 bg-gradient-to-t from-gray-900 via-transparent to-transparent opacity-0 hover:opacity-70 transition-opacity duration-300 flex items-end justify-center p-0">
+                        <p class="text-white text-lg font-bold">Adhesives</p>
+                    </div>
+                </div>
+                <h2 class="text-xl font-semibold text-gray-800 mb-3">Adhesives</h2>
+                <a href="adhesive.html">
+                    <button
+                        class="bg-green-500 text-white font-medium py-2 px-6 rounded-full shadow-md hover:text-black hover:shadow-lg focus:ring-2 focus:ring-indigo-400 focus:outline-none transition-all">
+                        Shop
+                    </button>
+                </a>
+            </div>
+
+            <!-- Card 6 -->
+            <div
+                class="bg-gradient-to-r from-yellow-100 via-gray-200 to-yellow-100 p-4 rounded-lg shadow-lg transform transition-transform duration-300 hover:scale-105 text-center">
+                <div class="relative">
+                    <img src="/images/mens clothing.jpg" alt="Calendars & Planners"
+                        class="w-full h-48 object-contain mb-3">
+                    <div
+                        class="absolute inset-0 bg-gradient-to-t from-gray-900 via-transparent to-transparent opacity-0 hover:opacity-70 transition-opacity duration-300 flex items-end justify-center p-0">
+                        <p class="text-white text-lg font-bold">Calendars & Planners</p>
+                    </div>
+                </div>
+                <h2 class="text-xl font-semibold text-gray-800 mb-3">Calendars & Planners</h2>
+                <a href="calender&plan.html">
+                    <button
+                        class="bg-yellow-500 text-white font-medium py-2 px-6 rounded-full shadow-md hover:text-black hover:shadow-lg focus:ring-2 focus:ring-indigo-400 focus:outline-none transition-all">
+                        Shop
+                    </button>
+                </a>
+            </div>
+
+            <!-- Card 7 -->
+            <div
+                class="bg-gradient-to-r from-indigo-100 via-gray-200 to-indigo-100 p-4 rounded-lg shadow-lg transform transition-transform duration-300 hover:scale-105 text-center">
+                <div class="relative">
+                    <img src="/images/mens clothing.jpg" alt="Art Supplies" class="w-full h-48 object-contain mb-3">
+                    <div
+                        class="absolute inset-0 bg-gradient-to-t from-gray-900 via-transparent to-transparent opacity-0 hover:opacity-70 transition-opacity duration-300 flex items-end justify-center p-0">
+                        <p class="text-white text-lg font-bold">Art Supplies</p>
+                    </div>
+                </div>
+                <h2 class="text-xl font-semibold text-gray-800 mb-3">Art Supplies</h2>
+                <a href="art.html">
+                    <button
+                        class="bg-indigo-500 text-white font-medium py-2 px-6 rounded-full shadow-md hover:text-black hover:shadow-lg focus:ring-2 focus:ring-indigo-400 focus:outline-none transition-all">
+                        Shop
+                    </button>
+                </a>
+            </div>
+
+            <!-- Card 8 -->
+            <div
+                class="bg-gradient-to-r from-pink-100 via-gray-200 to-pink-100 p-4 rounded-lg shadow-lg transform transition-transform duration-300 hover:scale-105 text-center">
+                <div class="relative">
+                    <img src="/images/mens clothing.jpg" alt="Presentation Supplies"
+                        class="w-full h-48 object-contain mb-3">
+                    <div
+                        class="absolute inset-0 bg-gradient-to-t from-gray-900 via-transparent to-transparent opacity-0 hover:opacity-70 transition-opacity duration-300 flex items-end justify-center p-0">
+                        <p class="text-white text-lg font-bold">Presentation Supplies</p>
+                    </div>
+                </div>
+                <h2 class="text-xl font-semibold text-gray-800 mb-3">Presentation Supplies</h2>
+                <a href="presentation.html">
+                    <button
+                        class="bg-pink-500 text-white font-medium py-2 px-6 rounded-full shadow-md hover:text-black hover:shadow-lg focus:ring-2 focus:ring-indigo-400 focus:outline-none transition-all">
+                        Shop
+                    </button>
+                </a>
+            </div>
+
+           
+
+            <!-- Card 9 -->
+            <div
+                class="bg-gradient-to-r from-pink-100 via-gray-200 to-pink-100 p-4 rounded-lg shadow-lg transform transition-transform duration-300 hover:scale-105 text-center">
+                <div class="relative">
+                    <img src="/images/mens clothing.jpg" alt="Desk Accessories" class="w-full h-48 object-contain mb-3">
+                    <div
+                        class="absolute inset-0 bg-gradient-to-t from-gray-900 via-transparent to-transparent opacity-0 hover:opacity-70 transition-opacity duration-300 flex items-end justify-center p-0">
+                        <p class="text-white text-lg font-bold">Desk Accessories</p>
+                    </div>
+                </div>
+                <h2 class="text-xl font-semibold text-gray-800 mb-3">Desk Accessories</h2>
+                <a href="deskacc.html">
+                    <button
+                        class="bg-pink-500 text-white font-medium py-2 px-6 rounded-full shadow-md hover:text-black hover:shadow-lg focus:ring-2 focus:ring-indigo-400 focus:outline-none transition-all">
+                        Shop
+                    </button>
+                </a>
+            </div>
+
+            <!-- Card 10 -->
+            <div
+                class="bg-gradient-to-r from-green-100 via-gray-200 to-green-100 p-4 rounded-lg shadow-lg transform transition-transform duration-300 hover:scale-105 text-center">
+                <div class="relative">
+                    <img src="/images/mens clothing.jpg" alt="Safety Gear" class="w-full h-48 object-contain mb-3">
+                    <div
+                        class="absolute inset-0 bg-gradient-to-t from-gray-900 via-transparent to-transparent opacity-0 hover:opacity-70 transition-opacity duration-300 flex items-end justify-center p-0">
+                        <p class="text-white text-lg font-bold">Safety Gear</p>
+                    </div>
+                </div>
+                <h2 class="text-xl font-semibold text-gray-800 mb-3">Safety Gear</h2>
+                <a href="safety.html">
+                    <button
+                        class="bg-green-500 text-white font-medium py-2 px-6 rounded-full shadow-md hover:text-black hover:shadow-lg focus:ring-2 focus:ring-indigo-400 focus:outline-none transition-all">
+                        Shop
+                    </button>
+                </a>
+            </div>
+
+
+        </div>
+    </div>
+    
+</body>
+
+</html>

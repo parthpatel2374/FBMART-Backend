@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="images/FBMart_Final.png">
+  <title>Contact Us</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @keyframes zoomInFromDot {
+            0% {
+                transform: scale(0);
+                opacity: 0;
+            }
+
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        .animate-zoom-in-from-dot {
+            animation: zoomInFromDot 1.8s ease-in-out forwards;
+        }
+    </style>
+</head>
+
+<body class="bg-gray-100 animate-zoom-in-from-dot">
+
+    
+    <header class="bg-gray-400 text-white py-4 shadow-md text-center ">
+        <div class="container mx-auto p-6">
+
+            <nav>
+                <a href="index.html" class="px-4 hover:underline text-black text-xl">Home</a>
+                
+                <a href="contact.html" class="px-4 hover:underline text-black text-xl">Contact</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="py-12 px-4 shadow-xl">
+        <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12">
+
+            <!-- Contact Form -->
+            <div class="bg-white p-8 rounded-xl shadow-lg transform ">
+                <h2 class="text-2xl font-bold mb-6 text-black text-center">Send Us a Message</h2>
+                <form action="#" method="POST" class="space-y-6">
+                    <div>
+                        <label for="name" class="block text-sm font-medium text-gray-700">Name</label>
+                        <input type="text" id="name" name="name" required placeholder="Enter your name"
+                            class="w-full mt-2 px-4 py-3 border rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500 focus:outline-none focus:border-black hover:border-black hover:scale-105 transition-transform duration-300 ease-in-out">
+                    </div>
+
+                    <div>
+                        <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
+                        <input type="email" id="email" name="email" required placeholder="Enter your email"
+                            class="w-full mt-2 px-4 py-3 border rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500 focus:outline-none focus:border-black hover:border-black hover:scale-105 transition-transform duration-300 ease-in-out">
+                    </div>
+                    <div>
+                        <label for="message" class="block text-sm font-medium text-gray-700">Message</label>
+                        <textarea id="message" name="message" rows="5" required placeholder="Your message..."
+                            class="w-full mt-2 px-4 py-3 border rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500 focus:outline-none focus:border-black hover:border-black hover:scale-105 transition-transform duration-300 ease-in-out"></textarea>
+                    </div>
+                    <button type="submit"
+                        class="w-full bg-gradient-to-r from-gray-800 to-gray-500 text-white font-semibold py-3 rounded-lg shadow-md hover:from-black hover:to-gray-600 transition-all">
+                        Submit
+                    </button>
+
+                </form>
+            </div>
+
+            <!-- Contact Information -->
+            <div class="bg-gradient-to-r from-gray-500 to-gray-600 p-8 rounded-xl shadow-lg ">
+                <h2 class="text-2xl font-bold mb-6 text-black text-center">Contact Details</h2>
+                <p class="text-black mb-6">Feel free to reach out to us directly through any of the following
+                    methods:</p>
+                <ul class="space-y-4">
+                    <li class="flex items-start">
+
+                        <div>
+                            <p class="font-semibold">Email:</p>
+                            <a href="https://mail.google.com/mail/?view=cm&fs=1&to=fbmart256@gmail.com" target="_blank"
+                                class="text-black hover:underline">
+                                fbmart256@gmail.com
+                            </a>
+                        </div>
+
+                    </li>
+                    <li class="flex items-start">
+
+                        <div>
+                            <p class="font-semibold">Phone:</p>
+                            <a href="tel:+918799606056" class="text-black hover:underline">+91 8799606056</a>
+                        </div>
+                    </li>
+                    <li class="flex items-start">
+                        <div>
+                            <p class="font-semibold">Address:</p>
+                            <p>Office.no 423, 4th Floor, Northplaza Complex, Motera, Ahmedabad, Gujarat</p>
+
+
+                            <iframe class="w-full mt-4 rounded-lg shadow-lg"
+                                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3669.8596551247037!2d72.59178917535995!3d23.10223287911807!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x395e83c8feda3b91%3A0xbdd007021bf5fd43!2sNorth%20Plaza!5e0!3m2!1sen!2sin!4v1733823957877!5m2!1sen!2sin"
+                                style="border:0; height: 300px;" allowfullscreen="" loading="lazy"></iframe>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-400 text-white py-6">
+        <div class="text-center text-black">
+            &copy; 2024 Your Company. All rights reserved.
+        </div>
+    </footer>
+
+</body>
+
+</html>

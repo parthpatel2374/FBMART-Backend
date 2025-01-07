@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Details</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .slider-container img {
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .slider-container img:hover {
+            transform: scale(1.05);
+        }
+
+        .thumbnails img {
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: border-color 0.3s ease-in-out;
+        }
+
+        .thumbnails img.active {
+            border-color: #3b82f6; /* Tailwind blue-500 */
+        }
+
+        .size-option.selected {
+            background-color: #3b82f6; /* Tailwind blue-500 */
+            color: white;
+        }
+    </style>
+</head>
+
+<body class="bg-gray-100 font-sans min-h-screen">
+
+    <div class="container mx-auto py-10 px-4">
+        <!-- Main Container -->
+        <div class="flex flex-col lg:flex-row bg-white shadow-lg rounded-lg overflow-hidden">
+            <!-- Slider Section -->
+            <div class="slider-container lg:w-1/2 p-4">
+                <div class="relative">
+                    <img id="slider-img" src="https://via.placeholder.com/400x300" alt="Product Image" class="w-full object-contain rounded-lg">
+                </div>
+                <div id="thumbnails" class="thumbnails flex gap-2 mt-4 justify-center">
+                    <!-- Thumbnails dynamically populated via JavaScript -->
+                </div>
+            </div>
+
+            <!-- Product Details Section -->
+            <div class="product-details lg:w-1/2 p-6 flex flex-col justify-between">
+                <h1 id="product-name" class="text-3xl font-bold text-gray-800 mb-4">Product Name</h1>
+                <p id="product-description" class="text-gray-600 mb-4">Product description goes here...</p>
+
+                <div class="sizes mb-4">
+                    <h3 class="text-lg font-medium text-gray-800 mb-2">Available Sizes:</h3>
+                    <div id="product-sizes" class="flex gap-2">
+                        <!-- Sizes dynamically populated via JavaScript -->
+                    </div>
+                </div>
+
+                <p id="product-price" class="text-2xl font-bold text-green-600 mb-6">₹ 0.00</p>
+
+                <button id="add-to-cart" class="bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600 transition mb-6" disabled>
+                    Add to Cart
+                </button>
+
+                <div class="reviews">
+                    <h3 class="text-lg font-medium text-gray-800 mb-2">Reviews:</h3>
+                    <textarea id="review-field" rows="3" class="w-full p-2 border rounded-lg mb-4" placeholder="Write your review here..."></textarea>
+                    <button class="bg-yellow-400 px-4 py-2 rounded-lg hover:bg-green-600 transition">Submit Review</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Example product data (will be fetched dynamically in the future)
+        const product = {
+            id: 101,
+            name: "Sample Product",
+            description: "This is a sample product description.",
+            price: "1499.00",
+            imageUrls: [
+                "https://via.placeholder.com/400x300?text=Image1",
+                "https://via.placeholder.com/400x300?text=Image2",
+                "https://via.placeholder.com/400x300?text=Image3",
+                "https://via.placeholder.com/400x300?text=Image4",
+                "https://via.placeholder.com/400x300?text=Image5",
+            ],
+            sizes: ["XL", "XXL", "L"]
+        };
+
+        // Populate Product Details
+        document.getElementById("product-name").innerText = product.name;
+        document.getElementById("product-description").innerText = product.description;
+        document.getElementById("product-price").innerText = `₹ ${product.price}`;
+
+        // Populate Sizes
+        const sizesContainer = document.getElementById("product-sizes");
+        product.sizes.forEach(size => {
+            const sizeTag = document.createElement("span");
+            sizeTag.innerText = size;
+            sizeTag.className = "size-option px-4 py-2 bg-gray-200 rounded-lg cursor-pointer hover:bg-gray-300";
+            sizeTag.addEventListener("click", () => {
+                // Remove 'selected' class from all sizes
+                document.querySelectorAll(".size-option").forEach(s => s.classList.remove("selected"));
+                // Add 'selected' class to clicked size
+                sizeTag.classList.add("selected");
+
+                // Enable 'Add to Cart' button
+                document.getElementById("add-to-cart").disabled = false;
+            });
+            sizesContainer.appendChild(sizeTag);
+        });
+
+        // Populate Image Slider
+        const sliderImg = document.getElementById("slider-img");
+        const thumbnails = document.getElementById("thumbnails");
+        product.imageUrls.slice(0, 5).forEach((url, index) => {
+            const thumbnailImg = document.createElement("img");
+            thumbnailImg.src = url;
+            thumbnailImg.alt = `Thumbnail ${index + 1}`;
+            thumbnailImg.className = index === 0 ? "w-16 h-16 object-cover rounded-lg active" : "w-16 h-16 object-cover rounded-lg";
+            thumbnailImg.addEventListener("click", () => {
+                sliderImg.src = url;
+                document.querySelectorAll(".thumbnails img").forEach(img => img.classList.remove("active"));
+                thumbnailImg.classList.add("active");
+            });
+            thumbnails.appendChild(thumbnailImg);
+        });
+
+        // Add to Cart
+        document.getElementById("add-to-cart").addEventListener("click", () => {
+    // Check if a size is selected
+    const selectedSize = document.querySelector(".size-option.selected");
+    if (!selectedSize) {
+        alert("Please select a size first.");
+        return;
+    }
+
+    // Create product object with selected size
+    const productToAdd = {
+        id: product.id,
+        name: product.name,
+        description: product.description,
+        price: product.price,
+        imageUrls: product.imageUrls,
+        selectedSize: selectedSize.innerText
+    };
+
+    // Get the current cart from localStorage or initialize it
+    const currentCart = JSON.parse(localStorage.getItem("cart")) || [];
+    // Add the new product to the cart
+    currentCart.push(productToAdd);
+    // Save the updated cart back to localStorage
+    localStorage.setItem("cart", JSON.stringify(currentCart));
+
+    alert(`${product.name} has been added to your cart!`);
+});
+
+    </script>
+</body>
+
+</html>

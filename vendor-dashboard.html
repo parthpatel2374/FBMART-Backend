@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vendor Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gray-100">
+
+    <!-- Dashboard Container -->
+    <div class="flex min-h-screen">
+        <!-- Sidebar -->
+        <div class="w-64 bg-blue-600 text-white flex flex-col p-6">
+            <h1 class="text-2xl font-semibold mb-8">Vendor Dashboard</h1>
+            <nav>
+                <ul>
+                    <li><a href="#add-product" class="block py-2 px-4 mb-4 bg-blue-700 rounded hover:bg-blue-800">Add Product</a></li>
+                    <li><a href="#view-products" class="block py-2 px-4 mb-4 rounded hover:bg-blue-800">View Products</a></li>
+                </ul>
+            </nav>
+        </div>
+
+        <!-- Main Content -->
+        <div class="flex-1 p-8">
+            <!-- Add Product Form -->
+            <div id="add-product" class="mb-12">
+                <h2 class="text-3xl font-semibold mb-6">Add Product</h2>
+                <form id="product-form" class="bg-white shadow-md rounded-lg p-6">
+                    <div class="space-y-6">
+                        <!-- Product Name -->
+                        <div>
+                            <label for="product-name" class="block text-gray-700 font-semibold">Product Name</label>
+                            <input type="text" id="product-name" name="product-name" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+                        </div>
+
+                        <!-- Product Description -->
+                        <div>
+                            <label for="product-description" class="block text-gray-700 font-semibold">Product Description</label>
+                            <textarea id="product-description" name="product-description" rows="4" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" required></textarea>
+                        </div>
+
+                        <!-- Price -->
+                        <div>
+                            <label for="price" class="block text-gray-700 font-semibold">Price</label>
+                            <input type="number" id="price" name="price" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+                        </div>
+
+                        <!-- Stock Quantity -->
+                        <div>
+                            <label for="stock-quantity" class="block text-gray-700 font-semibold">Stock Quantity</label>
+                            <input type="number" id="stock-quantity" name="stock-quantity" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+                        </div>
+
+                        <!-- Size Options (if applicable) -->
+                        <div>
+                            <label for="size-options" class="block text-gray-700 font-semibold">Size Options (if applicable)</label>
+                            <input type="text" id="size-options" name="size-options" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                            <small class="text-gray-500">Enter sizes separated by commas (e.g., S, M, L, XL)</small>
+                        </div>
+
+                        <!-- Images -->
+                        <div>
+                            <label for="product-images" class="block text-gray-700 font-semibold">Product Images</label>
+                            <input type="file" id="product-images" name="product-images" accept="image/*" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" multiple>
+                            <small class="text-gray-500">Upload multiple images</small>
+                        </div>
+
+                        <!-- Category -->
+                        <div>
+                            <label for="category" class="block text-gray-700 font-semibold">Category</label>
+                            <select id="category" name="category" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+                                <option value="">Select Category</option>
+                                <option value="electronics">Electronics</option>
+                                <option value="clothing">Clothing</option>
+                                <option value="home-appliance">Home Appliance</option>
+                                <option value="books">Books</option>
+                            </select>
+                        </div>
+
+                        <!-- Status (Active/Inactive) -->
+                        <div>
+                            <label for="status" class="block text-gray-700 font-semibold">Status</label>
+                            <select id="status" name="status" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+                                <option value="active">Active</option>
+                                <option value="inactive">Inactive</option>
+                            </select>
+                        </div>
+
+                        <!-- Submit Button -->
+                        <div>
+                            <button type="submit" id="add-product-btn" class="w-full bg-blue-600 text-white font-semibold py-2 rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                Add Product
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <!-- View Products Section -->
+            <div id="view-products">
+                <h2 class="text-3xl font-semibold mb-6">View Products</h2>
+                <div id="product-list" class="bg-white shadow-md rounded-lg p-6">
+                    <!-- Product List will be dynamically generated here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // JavaScript to handle product form submission, dynamic addition of products, and product deletion
+        document.getElementById('product-form').addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            // Get form values
+            const productName = document.getElementById('product-name').value;
+            const productDescription = document.getElementById('product-description').value;
+            const price = document.getElementById('price').value;
+            const stockQuantity = document.getElementById('stock-quantity').value;
+            const sizeOptions = document.getElementById('size-options').value;
+            const category = document.getElementById('category').value;
+            const status = document.getElementById('status').value;
+            const productImages = document.getElementById('product-images').files;
+
+            // Create image preview
+            let imagePreviewHTML = '';
+            if (productImages.length > 0) {
+                Array.from(productImages).forEach(image => {
+                    const imageUrl = URL.createObjectURL(image);
+                    imagePreviewHTML += `<img src="${imageUrl}" class="w-32 h-32 object-cover rounded-lg mb-4" alt="Product Image">`;
+                });
+            }
+
+            // Create product item object
+            const productItem = {
+                name: productName,
+                description: productDescription,
+                price: price,
+                stockQuantity: stockQuantity,
+                sizeOptions: sizeOptions,
+                category: category,
+                status: status,
+                images: imagePreviewHTML
+            };
+
+            // Get current products from localStorage, or create an empty array if none
+            const products = JSON.parse(localStorage.getItem('products')) || [];
+
+            // Add the new product to the products array
+            products.push(productItem);
+
+            // Save the updated products array back to localStorage
+            localStorage.setItem('products', JSON.stringify(products));
+
+            // Update the view with the new product list
+            renderProducts();
+
+            // Clear the form fields
+            document.getElementById('product-form').reset();
+        });
+
+        // Function to render products from localStorage
+        function renderProducts() {
+            const productList = document.getElementById('product-list');
+            const products = JSON.parse(localStorage.getItem('products')) || [];
+
+            productList.innerHTML = ''; // Clear current list
+
+            // Render each product
+            products.forEach((product, index) => {
+                const productHTML = `
+                    <div class="flex justify-between items-start mb-4" data-index="${index}">
+                        <div>
+                            <h3 class="text-xl font-semibold">${product.name}</h3>
+                            <p class="text-gray-600">${product.description}</p>
+                            <p class="text-gray-800 font-semibold">Price: $${product.price}</p>
+                            <p class="text-gray-800 font-semibold">Stock Quantity: ${product.stockQuantity}</p>
+                            <p class="text-gray-800 font-semibold">Size Options: ${product.sizeOptions || "N/A"}</p>
+                            <p class="text-gray-800 font-semibold">Category: ${product.category}</p>
+                            <p class="text-gray-800 font-semibold">Status: ${product.status}</p>
+                            <div class="mt-4">${product.images}</div>
+                        </div>
+                        <div class="flex gap-4">
+                            <button onclick="editProduct(this)" class="text-blue-500 hover:text-blue-700">Edit</button>
+                            <button onclick="deleteProduct(this)" class="text-red-500 hover:text-red-700">Delete</button>
+                        </div>
+                    </div>
+                `;
+
+                productList.insertAdjacentHTML('beforeend', productHTML);
+            });
+        }
+
+        // Function to delete product from both DOM and localStorage
+        function deleteProduct(button) {
+            const productDiv = button.closest('div'); // Find the closest parent product div
+            const productIndex = productDiv.getAttribute('data-index'); // Get the index of the product
+
+            // Get current products from localStorage
+            const products = JSON.parse(localStorage.getItem('products')) || [];
+
+            // Remove the product from the array
+            products.splice(productIndex, 1);
+
+            // Save the updated products list back to localStorage
+            localStorage.setItem('products', JSON.stringify(products));
+
+            // Remove the product from the DOM
+            productDiv.remove();
+
+            // Re-render the products list
+            renderProducts();
+        }
+
+        // Render products on page load
+        document.addEventListener('DOMContentLoaded', renderProducts);
+    </script>
+    
+</body>
+
+</html>
