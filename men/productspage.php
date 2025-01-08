@@ -35,7 +35,7 @@ $stmt = $conn->prepare(
             p.price, 
             sc.name AS subcategory_name, 
             c.name AS category_name,
-            pi.image_id,
+            pi.id as image_id,
             pi.image_data
      FROM products p
      INNER JOIN subcategories sc ON p.subcategory_id = sc.id
