@@ -35,7 +35,7 @@ $stmt = $conn->prepare(
             p.price, 
             sc.name AS subcategory_name, 
             c.name AS category_name,
-            pi.image_name,
+            pi.image_id,
             pi.image_data
      FROM products p
      INNER JOIN subcategories sc ON p.subcategory_id = sc.id
@@ -92,11 +92,11 @@ $conn->close();
                 $image = !empty($product['image_data']) ? 'data:image/jpeg;base64,' . base64_encode($product['image_data']) : 'https://via.placeholder.com/150'; // Can Add Fallback to a placeholder image
                 
                 echo "<div class='card bg-white rounded-lg shadow-lg overflow-hidden transition transform hover:scale-105 w-full max-w-xs'>";
-                // Display the image or image_name if image is not available
+                // Display the image or image_id if image is not available
                 if ($image) {
                     echo "<img class='w-full h-48 object-cover' src='{$image}' alt='{$product['name']}'>";
                 } else {
-                    echo "<div class='text-center text-gray-500 mt-4'>{$product['image_name']}</div>";
+                    echo "<div class='text-center text-gray-500 mt-4'>{$product['image_id']}</div>";
                 }
                 echo "<div class='p-4'>";
                 echo "<h3 class='text-lg font-bold text-gray-700 mt-4 text-center'>{$product['name']}</h3>";
