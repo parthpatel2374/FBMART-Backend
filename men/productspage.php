@@ -3,7 +3,7 @@ error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
 // Database connection
-$host = "localhost:3310";
+$host = "localhost";
 $username = "root";
 $password = "";
 $database = "fbmart";
@@ -35,7 +35,7 @@ $stmt = $conn->prepare(
             p.price, 
             sc.name AS subcategory_name, 
             c.name AS category_name,
-            pi.id AS image_id,
+            pi.image_name,
             pi.image_data
      FROM products p
      INNER JOIN subcategories sc ON p.subcategory_id = sc.id
@@ -96,7 +96,7 @@ $conn->close();
                 if ($image) {
                     echo "<img class='w-full h-48 object-cover' src='{$image}' alt='{$product['name']}'>";
                 } else {
-                    echo "<div class='text-center text-gray-500 mt-4'>{$product['image_id']}</div>";
+                    echo "<div class='text-center text-gray-500 mt-4'>{$product['image_name']}</div>";
                 }
                 echo "<div class='p-4'>";
                 echo "<h3 class='text-lg font-bold text-gray-700 mt-4 text-center'>{$product['name']}</h3>";
