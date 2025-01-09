@@ -622,7 +622,7 @@ header, nav {
           document.body.style.overflow = ""; // Enable scrolling
         });
       }
-
+// -----------------------------------------------------------------------------------------ERROR--------------------------------------|
       // Toggle dropdowns in mobile menu
       if (mobileDropdownButtons.length > 0) {
         mobileDropdownButtons.forEach(button => {

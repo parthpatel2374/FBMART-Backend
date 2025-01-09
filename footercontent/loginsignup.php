@@ -1,5 +1,5 @@
 <?php
-include 'db.php'; // Database connection
+include '../db.php'; // Database connection
 
 // Initialize variables to hold form data and messages
 $message = "";

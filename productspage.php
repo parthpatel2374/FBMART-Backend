@@ -2,18 +2,7 @@
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
-// Database connection
-$host = "localhost";
-$username = "root";
-$password = "";
-$database = "fbmart";
-
-$conn = new mysqli($host, $username, $password, $database);
-
-// Check connection
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
+INCLUDE 'db.php';
 
 // Check if the form was submitted and the variable is set
 if (isset($_POST['category']) && isset($_POST['subcategory'])) {
