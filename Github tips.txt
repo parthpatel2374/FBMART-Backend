@@ -43,3 +43,4 @@ You have many alternatives, for example:
 	•	Alternative 3: git reset --soft <commit_id>
 	•	Always use this.You can keep your work and only undo the commit.
 
+I learned Push and pull.
