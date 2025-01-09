@@ -424,123 +424,62 @@ header, nav {
     </div>
   </header>
 
+  <?php
+    // Include database connection
+    include 'db.php';
 
+    // Fetch categories from the database
+    $sql_categories = "SELECT id, name FROM categories";
+    $result_categories = $conn->query($sql_categories);
 
+    if ($result_categories->num_rows > 0) {
+        echo '<div class="hidden lg:flex justify-center gap-6 w-full space-x-6">';
 
-  <div class="hidden lg:flex justify-center  gap-6 w-full space-x-6">
-    <!-- Dropdown Items -->
-    <div class="group relative">
-      <button class="font-medium hover:text-purple-400">Men's</button>
-      <div class="dropdown-menu absolute bg-blue-100 text-gray-800 shadow-lg rounded-lg mt-0 w-48">
-        <a href="men/mentopwear.html" class="block px-4 py-2 hover:bg-blue-200">Top Wear</a>
-        <a href="men/menbottomwear.html" class="block px-4 py-2 hover:bg-blue-200">Bottom Wear</a>
-        <a href="men/menacce.html" class="block px-4 py-2 hover:bg-blue-200">Accessories</a>
-        <a href="men/menfoot.html" class="block px-4 py-2 hover:bg-blue-200">Footwear</a>
-        <a href="men/menethnic.html" class="block px-4 py-2 hover:bg-blue-200">Ethnic Wear</a>
-        <a href="men/meninner.html" class="block px-4 py-2 hover:bg-blue-200">Inner Wear</a>
-      </div>
-    </div>
+        // Loop through categories
+        while ($category = $result_categories->fetch_assoc()) {
+            $category_id = $category['id'];
+            $category_name = $category['name'];
 
-    <div class="group relative">
-      <button class="font-medium hover:text-purple-400">Women's</button>
-      <div class="dropdown-menu absolute bg-pink-100 text-gray-800 shadow-lg rounded-lg mt-0 w-48">
-        <a href="women/womensaree.html" class="block px-4 py-2 hover:bg-pink-200">Sarees</a>
-        <a href="women/womenkurti.html" class="block px-4 py-2 hover:bg-pink-200">Kurtis</a>
-        <a href="women/womenmaterial.html" class="block px-4 py-2 hover:bg-pink-200">Suit and Dress Material</a>
-        <a href="women/womenkurta.html" class="block px-4 py-2 hover:bg-pink-200">Kurta Sets</a>
-        <a href="women/womentop.html" class="block px-4 py-2 hover:bg-pink-200">Top Wear</a>
-        <a href="women/womenbottom.html" class="block px-4 py-2 hover:bg-pink-200">Bottom Wear</a>
-        <a href="women/womeninner.html" class="block px-4 py-2 hover:bg-pink-200">Inner Wear</a>
-        <a href="women/womensleep.html" class="block px-4 py-2 hover:bg-pink-200">Sleep Wear</a>
-      </div>
-    </div>
+            // Fetch subcategories for the current category
+            $sql_subcategories = "SELECT name FROM subcategories WHERE category_id = ?";
+            $stmt = $conn->prepare($sql_subcategories);
+            $stmt->bind_param("i", $category_id);
+            $stmt->execute();
+            $result_subcategories = $stmt->get_result();
 
-    <div class="group relative">
-      <button class="font-medium hover:text-purple-400">Kid's</button>
-      <div class="dropdown-menu absolute bg-yellow-100 text-gray-800 shadow-lg rounded-lg mt-0 w-48">
-        <a href="kids/2+years.html" class="block px-4 py-2 hover:bg-yellow-200">Boys & Girls 2+ Years</a>
-        <a href="kids/0-2years.html" class="block px-4 py-2 hover:bg-yellow-200">Infant 0-2 Years</a>
-        <a href="kids/toys&acce.html" class="block px-4 py-2 hover:bg-yellow-200">Toys & Accessories</a>
-        <a href="kids/babycare.html" class="block px-4 py-2 hover:bg-yellow-200">Baby Care</a>
-      </div>
-    </div>
+            echo '<div class="group relative">';
+            echo "<button class='font-medium hover:text-purple-400'>$category_name</button>";
 
-    <div class="group relative">
-      <button class="font-medium hover:text-purple-400">Jewellery & Accessories</button>
-      <div class="dropdown-menu absolute bg-green-100 text-gray-800 shadow-lg rounded-lg mt-0 w-48">
-        <a href="jewellery/alljewe.html" class="block px-4 py-2 hover:bg-green-200">All Jewelry</a>
-        <a href="jewellery/womenacce.html" class="block px-4 py-2 hover:bg-green-200">Women Accessory</a>
-      </div>
-    </div>
+            // Subcategories dropdown
+            if ($result_subcategories->num_rows > 0) {
+                echo '<div class="dropdown-menu absolute bg-blue-100 text-gray-800 shadow-lg rounded-lg mt-0 w-48">';
+                while ($subcategory = $result_subcategories->fetch_assoc()) {
+                    $subcategory_name = $subcategory['name'];
 
-    <div class="group relative">
-      <button class="font-medium hover:text-purple-400">Home & Kitchen</button>
-      <div class="dropdown-menu absolute bg-gray-100 text-gray-800 shadow-lg rounded-lg mt-0 w-48">
-        <a href="home&kitchen/furnishing.html" class="block px-4 py-2 hover:bg-gray-300">Home Furnishing</a>
-        <a href="home&kitchen/decore.html" class="block px-4 py-2 hover:bg-gray-300">Home Decore</a>
-        <a href="home&kitchen/kitchenassential.html" class="block px-4 py-2 hover:bg-gray-300">Kitchen Essentials</a>
-        <a href="home&kitchen/outdoor.html" class="block px-4 py-2 hover:bg-gray-300">Outdoor Living</a>
-      </div>
-    </div>
+                    // Form to send category and subcategory via POST
+                    echo "
+                        <form action='productspage.php' method='POST'>
+                            <input type='hidden' name='category' value='$category_name'>
+                            <input type='hidden' name='subcategory' value='$subcategory_name'>
+                            <button type='submit' class='block px-4 py-2 hover:bg-blue-200 text-left w-full'>$subcategory_name</button>
+                        </form>
+                    ";
+                }
+                echo '</div>';
+            } else {
+                echo '<div class="dropdown-menu absolute bg-gray-100 text-gray-800 shadow-lg rounded-lg mt-0 w-48">';
+                echo '<p class="block px-4 py-2 text-gray-400">No subcategories</p>';
+                echo '</div>';
+            }
 
-    <div class="group relative">
-      <button class="font-medium hover:text-purple-400">Beauty & Health</button>
-      <div class="dropdown-menu absolute bg-yellow-100 text-gray-800 shadow-lg rounded-lg mt-0 w-48">
-        <a href="beauty/makeup.html" class="block px-4 py-2 hover:bg-yellow-200">Makeup</a>
-        <a href="beauty/wellness.html" class="block px-4 py-2 hover:bg-yellow-200">Wellness</a>
-        <a href="beauty/skincare.html" class="block px-4 py-2 hover:bg-yellow-200">Skincare</a>
-      </div>
-    </div>
+            echo '</div>';
+        }
 
-    <div class="group relative">
-      <button class="font-medium hover:text-purple-400">Bags</button>
-      <div class="dropdown-menu absolute bg-green-100 text-gray-800 shadow-lg rounded-lg mt-0 w-48">
-        <a href="bags/menbag.html" class="block px-4 py-2 hover:bg-green-200">Men Bags</a>
-        <a href="bags/womenbag.html" class="block px-4 py-2 hover:bg-green-200">Women Bags</a>
-      </div>
-    </div>
-
-    <div class="group relative">
-      <button class="font-medium hover:text-purple-400">Footwear</button>
-      <div class="dropdown-menu absolute bg-red-100 text-gray-800 shadow-lg rounded-lg mt-0 w-48">
-        <a href="footwear/menfoot.html" class="block px-4 py-2 hover:bg-red-200">Men Footwear</a>
-        <a href="footwear/womenfoot.html" class="block px-4 py-2 hover:bg-red-200">Women Footwear</a>
-      </div>
-    </div>
-
-    <div class="group relative">
-      <button class="font-medium hover:text-purple-400">Electronics</button>
-      <div class="dropdown-menu absolute bg-indigo-100 text-gray-800 shadow-lg rounded-lg mt-0 w-48">
-        <a href="electronic/mobile&acce.html" class="block px-4 py-2 hover:bg-indigo-200">Mobile & Accessories</a>
-        <a href="electronic/appliances.html" class="block px-4 py-2 hover:bg-indigo-200">Appliances</a>
-      </div>
-    </div>
-
-    <div class="group relative">
-      <button class="font-medium hover:text-purple-400">Automobile</button>
-      <div class="dropdown-menu absolute bg-purple-100 text-gray-800 shadow-lg rounded-lg mt-0 w-48">
-        <a href="automobile/bikeacce.html" class="block px-4 py-2 hover:bg-purple-200">Bike Accessories</a>
-        <a href="automobile/caracce.html" class="block px-4 py-2 hover:bg-purple-200">Car Accessories</a>
-      </div>
-    </div>
-
-    <div class="group relative">
-      <button class="font-medium hover:text-purple-400">Stationary</button>
-      <div class="dropdown-menu absolute bg-red-100 text-gray-800 shadow-lg rounded-lg mt-0 w-48 right-0">
-        <a href="stationary/writing.html" class="block px-4 py-2 hover:bg-red-200">Writing Instruments</a>
-        <a href="stationary/paper.html" class="block px-4 py-2 hover:bg-red-200">Paper Products</a>
-        <a href="stationary/office.html" class="block px-4 py-2 hover:bg-red-200">Office Supplies</a>
-        <a href="stationary/cuttingtools.html" class="block px-4 py-2 hover:bg-red-200">Cutting Tools</a>
-        <a href="stationary/adhesive.html" class="block px-4 py-2 hover:bg-red-200">Adhesives</a>
-        <a href="stationary/calender&plan.html" class="block px-4 py-2 hover:bg-red-200">Calendars & Planners</a>
-        <a href="stationary/art.html" class="block px-4 py-2 hover:bg-red-200">Art Supplies</a>
-        <a href="stationary/presentation.html" class="block px-4 py-2 hover:bg-red-200">Presentation Supplies</a>
-        <a href="stationary/deskacc.html" class="block px-4 py-2 hover:bg-red-200">Desk Accessories</a>
-        <a href="stationary/safety.html" class="block px-4 py-2 hover:bg-red-200">Safety Gear</a>
-      </div>
-    </div>
-
-
+        echo '</div>';
+    } else {
+        echo '<p>No categories found.</p>';
+    }
+  ?>
 
   </div>
   <script>
@@ -604,254 +543,114 @@ header, nav {
 
   </script>
 
+  <?php
 
+    // Mobile Menu
+    if ($result_categories->num_rows > 0) {
+        echo '<div id="mobile-menu"
+              class="lg:hidden fixed top-0 left-0 w-7/12 md:w-5/12 sm:w-5/12 h-full bg-gray-700 text-white z-50 transform -translate-x-full transition-transform duration-500 ease-in-out">
+              <div class="relative h-full overflow-y-auto px-4">
+                <button id="close-menu-button" class="absolute top-4 right-4 text-2xl font-bold text-white hover:text-purple-400">
+                  &times;
+                </button>
+                <div class="py-6">';
 
-  <!-- Mobile Menu -->
-  <div id="mobile-menu"
-    class="lg:hidden fixed top-0 left-0 w-7/12 md:w-5/12 sm:w-5/12 h-full bg-gray-700 text-white z-50 transform -translate-x-full transition-transform duration-800 ease-in-out">
-    <div class="relative h-full overflow-y-auto px-4">
-      <!-- Close Button -->
-      <button id="close-menu-button" class="absolute top-4 right-4 text-2xl font-bold text-white hover:text-purple-400">
-        &times;
-      </button>
-      <div class="py-6">
-        <div class="py-2 ">
-          <button class="w-full text-left font-medium hover:text-purple-400">Men's
-            Clothing</button>
-          <div class="pl-4 hidden bg-gray-700 rounded-lg shadow-md border border-gray-300">
-            <a href="men/mentopwear.html"
-              class="block py-2 px-3 text-sm text-white hover:bg-purple-100 hover:text-purple-600 rounded-md">Top
-              Wear</a>
-            <a href="men/menbottomwear.html"
-              class="block py-2 px-3 text-sm text-white hover:bg-purple-100 hover:text-purple-600 rounded-md">Bottom
-              Wear</a>
-            <a href="men/menacce.html"
-              class="block py-2 px-3 text-sm text-white hover:bg-purple-100 hover:text-purple-600 rounded-md">Accessories</a>
-            <a href="men/menfoot.html"
-              class="block py-2 px-3 text-sm text-white hover:bg-purple-100 hover:text-purple-600 rounded-md">Footwear</a>
-            <a href="men/menethnic.html"
-              class="block py-2 px-3 text-sm text-white hover:bg-purple-100 hover:text-purple-600 rounded-md">Ethnic
-              Wear</a>
-            <a href="men/meninner.html"
-              class="block py-2 px-3 text-sm text-white hover:bg-purple-100 hover:text-purple-600 rounded-md">Inner
-              Wear</a>
-          </div>
+        // Reset category pointer
+        $result_categories->data_seek(0);
 
-        </div>
-        <div class="py-2 ">
-          <button class="w-full text-left font-medium hover:text-purple-400">Women's
-            Clothing</button>
-          <div class="pl-4 hidden bg-gray-700 rounded-lg shadow-md border border-gray-300">
-            <a href="women/womensaree.html"
-              class="block py-2 px-3 text-sm text-white hover:bg-purple-100 hover:text-purple-600 rounded-md">Sarees</a>
-            <a href="women/womenkurti.html"
-              class="block py-2 px-3 text-sm text-white hover:bg-purple-100 hover:text-purple-600 rounded-md">Kurtis</a>
-            <a href="women/womenmaterial.html"
-              class="block py-2 px-3 text-sm text-white hover:bg-purple-100 hover:text-purple-600 rounded-md">Suit and
-              Dress Material</a>
-            <a href="women/womenkurta.html"
-              class="block py-2 px-3 text-sm text-white hover:bg-purple-100 hover:text-purple-600 rounded-md">Kurta
-              Sets</a>
-            <a href="women/womentop.html"
-              class="block py-2 px-3 text-sm text-white hover:bg-purple-100 hover:text-purple-600 rounded-md">Top
-              Wear</a>
-            <a href="women/womenbottom.html"
-              class="block py-2 px-3 text-sm text-white hover:bg-purple-100 hover:text-purple-600 rounded-md">Bottom
-              Wear</a>
-            <a href="women/womeninner.html"
-              class="block py-2 px-3 text-sm text-white hover:bg-purple-100 hover:text-purple-600 rounded-md">Inner
-              Wear</a>
-            <a href="women/womensleep.html"
-              class="block py-2 px-3 text-sm text-white hover:bg-purple-100 hover:text-purple-600 rounded-md">Sleep
-              Wear</a>
-          </div>
-        </div>
-        <div class="py-2 ">
-          <button class="w-full text-left font-medium hover:text-purple-400">Kid's</button>
-          <div class="pl-4 hidden bg-gray-700 rounded-lg shadow-md border border-gray-300">
-            <a href="kids/2+years.html"
-              class="block py-2 px-3 text-sm text-white hover:bg-purple-100 hover:text-purple-600 rounded-md">Boys &
-              Girls 2+ Years</a>
-            <a href="kids/0-2years.html"
-              class="block py-2 px-3 text-sm text-white hover:bg-purple-100 hover:text-purple-600 rounded-md">Infant 0-2
-              Years</a>
-            <a href="kids/toys&acce.html"
-              class="block py-2 px-3 text-sm text-white hover:bg-purple-100 hover:text-purple-600 rounded-md">Toys &
-              Accessories</a>
-            <a href="kids/babycare.html"
-              class="block py-2 px-3 text-sm text-white hover:bg-purple-100 hover:text-purple-600 rounded-md">Baby
-              Care</a>
-          </div>
-        </div>
+        // Loop for mobile categories
+        while ($category = $result_categories->fetch_assoc()) {
+            $category_id = htmlspecialchars($category['id']);
+            $category_name = htmlspecialchars($category['name']);
 
-        <div class="py-2 ">
-          <button class="w-full text-left font-medium hover:text-purple-400">Jewellery & Accessories</button>
-          <div class="pl-4 hidden bg-gray-700 rounded-lg shadow-md border border-gray-300">
-            <a href="jewellery/alljewe.html"
-              class="block py-2 px-3 text-sm text-white hover:bg-purple-100 hover:text-purple-600 rounded-md">All
-              Jewelry</a>
-            <a href="jewellery/womenacce.html"
-              class="block py-2 px-3 text-sm text-white hover:bg-purple-100 hover:text-purple-600 rounded-md">Women
-              Accessory</a>
-          </div>
-        </div>
+            // Fetch subcategories
+            $stmt->bind_param("i", $category_id);
+            $stmt->execute();
+            $result_subcategories = $stmt->get_result();
 
-        <div class="py-2 ">
-          <button class="w-full text-left font-medium hover:text-purple-400">Home & Kitchen</button>
-          <div class="pl-4 hidden bg-gray-700 rounded-lg shadow-md border border-gray-300">
-            <a href="home&kitchen/furnishing.html"
-              class="block py-2 px-3 text-sm text-white hover:bg-purple-100 hover:text-purple-600 rounded-md">Home
-              Furnishing</a>
-            <a href="home&kitchen/decore.html"
-              class="block py-2 px-3 text-sm text-white hover:bg-purple-100 hover:text-purple-600 rounded-md">Home
-              Decore</a>
-            <a href="home&kitchen/kitchenassential.html"
-              class="block py-2 px-3 text-sm text-white hover:bg-purple-100 hover:text-purple-600 rounded-md">Kitchen
-              Essentials</a>
-            <a href="home&kitchen/outdoor.html"
-              class="block py-2 px-3 text-sm text-white hover:bg-purple-100 hover:text-purple-600 rounded-md">Outdoor
-              Living</a>
-          </div>
-        </div>
+            // Mobile Category
+            echo '<div class="py-2">';
+            echo "<button class='w-full text-left font-medium hover:text-purple-400'>$category_name</button>";
+            
+            if ($result_subcategories->num_rows > 0) {
+                echo '<div class="pl-4 hidden bg-gray-700 rounded-lg shadow-md border border-gray-300">';
+                while ($subcategory = $result_subcategories->fetch_assoc()) {
+                    $subcategory_name = htmlspecialchars($subcategory['name']);
+                    echo "
+                        <form action='productspage.php' method='POST'>
+                            <input type='hidden' name='category' value='$category_name'>
+                            <input type='hidden' name='subcategory' value='$subcategory_name'>
+                            <button type='submit' class='block py-2 px-3 text-sm text-white hover:bg-purple-100 hover:text-purple-600 rounded-md'>$subcategory_name</button>
+                        </form>
+                    ";
+                }
+            } else {
+                echo '<p class="block py-2 px-3 text-sm text-gray-400">No subcategories</p>';
+            }
+            echo '</div></div>';
+        }
 
-        <div class="py-2 ">
-          <button class="w-full text-left font-medium hover:text-purple-400"> Beauty & Health </button>
-          <div class="pl-4 hidden bg-gray-700 rounded-lg shadow-md border border-gray-300">
-            <a href="beauty/makeup.html"
-              class="block py-2 px-3 text-sm text-white hover:bg-purple-100 hover:text-purple-600 rounded-md">Makeup</a>
-            <a href="beauty/wellness.html"
-              class="block py-2 px-3 text-sm text-white hover:bg-purple-100 hover:text-purple-600 rounded-md">Wellness</a>
-            <a href="beauty/skincare.html"
-              class="block py-2 px-3 text-sm text-white hover:bg-purple-100 hover:text-purple-600 rounded-md">Skincare</a>
-          </div>
-        </div>
-
-        <div class="py-2 ">
-          <button class="w-full text-left font-medium hover:text-purple-400"> Bags</button>
-          <div class="pl-4 hidden bg-gray-700 rounded-lg shadow-md border border-gray-300">
-            <a href="bags/menbag.html"
-              class="block py-2 px-3 text-sm text-white hover:bg-purple-100 hover:text-purple-600 rounded-md">Men
-              Bags</a>
-            <a href="bags/womenbag.html"
-              class="block py-2 px-3 text-sm text-white hover:bg-purple-100 hover:text-purple-600 rounded-md">Women
-              Bags</a>
-          </div>
-        </div>
-
-        <div class="py-2 ">
-          <button class="w-full text-left font-medium hover:text-purple-400">Footwear</button>
-          <div class="pl-4 hidden bg-gray-700 rounded-lg shadow-md border border-gray-300">
-            <a href="footwear/menfoot.html"
-              class="block py-2 px-3 text-sm text-white hover:bg-purple-100 hover:text-purple-600 rounded-md">Men
-              Footwear</a>
-            <a href="footwear/womenfoot.html"
-              class="block py-2 px-3 text-sm text-white hover:bg-purple-100 hover:text-purple-600 rounded-md">Women
-              Footwear</a>
-          </div>
-        </div>
-
-        <div class="py-2 ">
-          <button class="w-full text-left font-medium hover:text-purple-400">Electronics</button>
-          <div class="pl-4 hidden bg-gray-700 rounded-lg shadow-md border border-gray-300">
-            <a href="electronic/mobile&acce.html"
-              class="block py-2 px-3 text-sm text-white hover:bg-purple-100 hover:text-purple-600 rounded-md">Mobile &
-              Accessories</a>
-            <a href="electronic/appliances.html"
-              class="block py-2 px-3 text-sm text-white hover:bg-purple-100 hover:text-purple-600 rounded-md">Appliances</a>
-          </div>
-        </div>
-
-        <div class="py-2 ">
-          <button class="w-full text-left font-medium hover:text-purple-400">Automobile</button>
-          <div class="pl-4 hidden bg-gray-700 rounded-lg shadow-md border border-gray-300">
-            <a href="automobile/caracce.html"
-              class="block py-2 px-3 text-sm text-white hover:bg-purple-100 hover:text-purple-600 rounded-md">Car
-              Accessories</a>
-            <a href="automobile/bikeacce.html"
-              class="block py-2 px-3 text-sm text-white hover:bg-purple-100 hover:text-purple-600 rounded-md">Bike
-              Accessories</a>
-          </div>
-        </div>
-
-        <div class="py-2 ">
-          <button class="w-full text-left font-medium hover:text-purple-400">Stationary</button>
-          <div class="pl-4 hidden bg-gray-700 rounded-lg shadow-md border border-gray-300 right-0">
-            <a href="stationary/writing.html"
-              class="block py-2 px-3 text-sm text-white hover:bg-purple-100 hover:text-purple-600 rounded-md">Writing
-              Instruments</a>
-            <a href="stationary/paper.html"
-              class="block py-2 px-3 text-sm text-white hover:bg-purple-100 hover:text-purple-600 rounded-md">Paper
-              Products</a>
-            <a href="stationary/office.html"
-              class="block py-2 px-3 text-sm text-white hover:bg-purple-100 hover:text-purple-600 rounded-md">Office
-              Supplies</a>
-            <a href="stationary/cuttingtools.html"
-              class="block py-2 px-3 text-sm text-white hover:bg-purple-100 hover:text-purple-600 rounded-md">Cutting
-              Tools</a>
-            <a href="stationary/adhesive.html"
-              class="block py-2 px-3 text-sm text-white hover:bg-purple-100 hover:text-purple-600 rounded-md">Adhesives</a>
-            <a href="stationary/calender&plan.html"
-              class="block py-2 px-3 text-sm text-white hover:bg-purple-100 hover:text-purple-600 rounded-md">Calendars
-              & Planners</a>
-            <a href="stationary/art.html"
-              class="block py-2 px-3 text-sm text-white hover:bg-purple-100 hover:text-purple-600 rounded-md">Art
-              Supplies</a>
-            <a href="stationary/presentation.html"
-              class="block py-2 px-3 text-sm text-white hover:bg-purple-100 hover:text-purple-600 rounded-md">Presentation
-              Supplies</a>
-            <a href="stationary/deskacc.html"
-              class="block py-2 px-3 text-sm text-white hover:bg-purple-100 hover:text-purple-600 rounded-md">Desk
-              Accessories</a>
-            <a href="stationary/safety.html"
-              class="block py-2 px-3 text-sm text-white hover:bg-purple-100 hover:text-purple-600 rounded-md">Safety
-              Gear</a>
-          </div>
-        </div>
-      </div>
-    </div>
-
-  </div>
+        echo '</div></div></div>'; // End of mobile menu
+    } else {
+        echo '<p>No categories found.</p>';
+    }
+    ?>
 
 
   </nav>
-
-
-  <!-- JavaScript -->
-  <script>
-    document.addEventListener("DOMContentLoaded", () => {
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
       const mobileMenuButton = document.getElementById("mobile-menu-button");
       const mobileMenu = document.getElementById("mobile-menu");
       const closeMenuButton = document.getElementById("close-menu-button");
+      const mobileDropdownButtons = document.querySelectorAll("#mobile-menu button");
 
       // Open Mobile Menu
-      mobileMenuButton.addEventListener("click", () => {
-        mobileMenu.classList.remove("-translate-x-full");
-        mobileMenu.classList.add("open");
-        document.body.style.overflow = "hidden"; // Disable scrolling
-      });
+      if (mobileMenuButton) {
+        mobileMenuButton.addEventListener("click", () => {
+          mobileMenu.classList.remove("-translate-x-full");
+          mobileMenu.classList.add("open");
+          document.body.style.overflow = "hidden"; // Disable scrolling
+        });
+      }
 
       // Close Mobile Menu
-      closeMenuButton.addEventListener("click", () => {
-        mobileMenu.classList.add("-translate-x-full");
-        mobileMenu.classList.remove("open");
-        document.body.style.overflow = ""; // Enable scrolling
-      });
+      if (closeMenuButton) {
+        closeMenuButton.addEventListener("click", () => {
+          mobileMenu.classList.add("-translate-x-full");
+          mobileMenu.classList.remove("open");
+          document.body.style.overflow = ""; // Enable scrolling
+        });
+      }
 
       // Toggle dropdowns in mobile menu
-      const mobileDropdownButtons = document.querySelectorAll("#mobile-menu button");
-      mobileDropdownButtons.forEach(button => {
-        button.addEventListener("click", (e) => {
-          const dropdown = e.target.nextElementSibling;
-          if (dropdown) {
-            dropdown.classList.toggle("hidden");
-          }
+      if (mobileDropdownButtons.length > 0) {
+        mobileDropdownButtons.forEach(button => {
+          const dropdown = button.nextElementSibling;
+
+          // if (dropdown) {
+          //   dropdown.classList.add("hidden"); // Initially hide all dropdowns
+          // }
+
+          button.addEventListener("click", (e) => {
+            // Close other dropdowns
+            mobileDropdownButtons.forEach(otherButton => {
+              const otherDropdown = otherButton.nextElementSibling;
+              if (otherDropdown && otherDropdown !== dropdown) {
+                otherDropdown.classList.add("hidden");
+              }
+            });
+
+            // Toggle the current dropdown
+            if (dropdown) {
+              dropdown.classList.toggle("hidden");
+            }
+          });
         });
-      });
-      
+      }
     });
-
-
   </script>
+
 
 
   <!-- Fixed Bottom Icons for Mobile -->
@@ -973,12 +772,14 @@ setInterval(nextSlide, 6000);
     <div class="text-center">
       <h2 class="text-lg font-semibold text-gray-800 mb-2">Men's Clothing</h2>
       <p class="text-sm text-gray-600 mb-4">Explore the latest fashion trends for men.</p>
-      <a href="men/menproducts.html">
-        <button
+      <!-- Form for POST request -->
+      <form action="product-categories/menproducts.php" method="POST">
+          <input type="hidden" name="category" value="men">
+          <button
           class="bg-blue-500 text-white font-semibold py-2 px-6 rounded-full shadow-md hover:text-black hover:shadow-lg focus:ring-2 focus:ring-blue-400 focus:outline-none transition-all">
           Explore Now
         </button>
-      </a>
+      </form>
     </div>
   </div>
 
@@ -996,12 +797,14 @@ setInterval(nextSlide, 6000);
     <div class="text-center">
       <h2 class="text-lg font-semibold text-gray-800 mb-2">Women's Clothing</h2>
       <p class="text-sm text-gray-600 mb-4">Explore the latest fashion trends for women.</p>
-      <a href="women/womenproducts.html">
-        <button
-          class="bg-pink-500 text-white font-semibold py-2 px-6 rounded-full shadow-md hover:text-black hover:shadow-lg focus:ring-2 focus:ring-pink-400 focus:outline-none transition-all">
+      <!-- Form for POST request -->
+      <form action="product-categories/womenproducts.php" method="POST">
+          <input type="hidden" name="category" value="women">
+          <button
+          class="bg-blue-500 text-white font-semibold py-2 px-6 rounded-full shadow-md hover:text-black hover:shadow-lg focus:ring-2 focus:ring-blue-400 focus:outline-none transition-all">
           Explore Now
         </button>
-      </a>
+      </form>
     </div>
   </div>
 
@@ -1020,12 +823,14 @@ setInterval(nextSlide, 6000);
     <div class="text-center">
       <h2 class="text-lg font-semibold text-gray-800 mb-2">Kids' Wear</h2>
       <p class="text-sm text-gray-600 mb-4">Fun and stylish clothing for kids of all ages.</p>
-      <a href="kids/kidproducts.html">
-        <button
-          class="bg-yellow-500 text-white font-semibold py-2 px-6 rounded-full shadow-md hover:text-black hover:shadow-lg focus:ring-2 focus:ring-yellow-400 focus:outline-none transition-all">
+      <!-- Form for POST request -->
+      <form action="product-categories/kidproducts.php" method="POST">
+          <input type="hidden" name="category" value="kids">
+          <button
+          class="bg-blue-500 text-white font-semibold py-2 px-6 rounded-full shadow-md hover:text-black hover:shadow-lg focus:ring-2 focus:ring-blue-400 focus:outline-none transition-all">
           Explore Now
         </button>
-      </a>
+      </form>
     </div>
   </div>
 
@@ -1045,12 +850,14 @@ setInterval(nextSlide, 6000);
     <div class="text-center">
       <h2 class="text-lg font-semibold text-gray-800 mb-2">Jewellery & Accessories</h2>
       <p class="text-sm text-gray-600 mb-4">Elegant designs to enhance your style.</p>
-      <a href="jewellery/jewellery.html">
-        <button
-          class="bg-pink-500 text-white font-semibold py-2 px-6 rounded-full shadow-md hover:text-black hover:shadow-lg focus:ring-2 focus:ring-pink-400 focus:outline-none transition-all">
+      <!-- Form for POST request -->
+      <form action="product-categories/jewellery.php" method="POST">
+          <input type="hidden" name="category" value="jewellery">
+          <button
+          class="bg-blue-500 text-white font-semibold py-2 px-6 rounded-full shadow-md hover:text-black hover:shadow-lg focus:ring-2 focus:ring-blue-400 focus:outline-none transition-all">
           Explore Now
         </button>
-      </a>
+      </form>
     </div>
   </div>
 
@@ -1068,12 +875,14 @@ setInterval(nextSlide, 6000);
     <div class="text-center">
       <h2 class="text-lg font-semibold text-gray-800 mb-2">Home & Kitchen</h2>
       <p class="text-sm text-gray-600 mb-4">Enhance your living space with ease.</p>
-      <a href="home&kitchen/h&k.html">
-        <button
-          class="bg-yellow-500 text-white font-semibold py-2 px-6 rounded-full shadow-md hover:text-black hover:shadow-lg focus:ring-2 focus:ring-yellow-400 focus:outline-none transition-all">
+      <!-- Form for POST request -->
+      <form action="product-categories/h&k.php" method="POST">
+          <input type="hidden" name="category" value="home&kitchen">
+          <button
+          class="bg-blue-500 text-white font-semibold py-2 px-6 rounded-full shadow-md hover:text-black hover:shadow-lg focus:ring-2 focus:ring-blue-400 focus:outline-none transition-all">
           Explore Now
         </button>
-      </a>
+      </form>
     </div>
   </div>
 
@@ -1092,12 +901,14 @@ setInterval(nextSlide, 6000);
     <div class="text-center">
       <h2 class="text-lg font-semibold text-gray-800 mb-2">Beauty & Health</h2>
       <p class="text-sm text-gray-600 mb-4">Explore essentials for your wellbeing.</p>
-      <a href="beauty/b&t.html">
-        <button
-          class="bg-pink-500 text-white font-semibold py-2 px-6 rounded-full shadow-md hover:text-black hover:shadow-lg focus:ring-2 focus:ring-pink-400 focus:outline-none transition-all">
+      <!-- Form for POST request -->
+      <form action="product-categories/b&t.php" method="POST">
+          <input type="hidden" name="category" value="beauty">
+          <button
+          class="bg-blue-500 text-white font-semibold py-2 px-6 rounded-full shadow-md hover:text-black hover:shadow-lg focus:ring-2 focus:ring-blue-400 focus:outline-none transition-all">
           Explore Now
         </button>
-      </a>
+      </form>
     </div>
   </div>
 
@@ -1117,12 +928,14 @@ setInterval(nextSlide, 6000);
     <div class="text-center">
       <h2 class="text-lg font-semibold text-gray-800 mb-2">Bags</h2>
       <p class="text-sm text-gray-600 mb-4">Discover stylish and functional bags.</p>
-      <a href="bags/bags.html">
-        <button
-          class="bg-yellow-500 text-white font-semibold py-2 px-6 rounded-full shadow-md hover:text-black hover:shadow-lg focus:ring-2 focus:ring-yellow-400 focus:outline-none transition-all">
+      <!-- Form for POST request -->
+      <form action="product-categories/bags.php" method="POST">
+          <input type="hidden" name="category" value="bags">
+          <button
+          class="bg-blue-500 text-white font-semibold py-2 px-6 rounded-full shadow-md hover:text-black hover:shadow-lg focus:ring-2 focus:ring-blue-400 focus:outline-none transition-all">
           Explore Now
         </button>
-      </a>
+      </form>
     </div>
   </div>
 
@@ -1141,12 +954,14 @@ setInterval(nextSlide, 6000);
     <div class="text-center">
       <h2 class="text-lg font-semibold text-gray-800 mb-2">Footwear</h2>
       <p class="text-sm text-gray-600 mb-4">Explore our collection of stylish and comfortable footwear.</p>
-      <a href="footwear/foot.html">
-        <button
-          class="bg-green-500 text-white font-semibold py-2 px-6 rounded-full shadow-md hover:text-black hover:shadow-lg focus:ring-2 focus:ring-green-400 focus:outline-none transition-all">
+      <!-- Form for POST request -->
+      <form action="product-categories/footwear.php" method="POST">
+          <input type="hidden" name="category" value="footwear">
+          <button
+          class="bg-blue-500 text-white font-semibold py-2 px-6 rounded-full shadow-md hover:text-black hover:shadow-lg focus:ring-2 focus:ring-blue-400 focus:outline-none transition-all">
           Explore Now
         </button>
-      </a>
+      </form>
     </div>
   </div>
 
@@ -1165,12 +980,14 @@ setInterval(nextSlide, 6000);
     <div class="text-center">
       <h2 class="text-lg font-semibold text-gray-800 mb-2">Electronics</h2>
       <p class="text-sm text-gray-600 mb-4">Browse our range of cutting-edge electronics and gadgets.</p>
-      <a href="electronic/electronics.html">
-        <button
+      <!-- Form for POST request -->
+      <form action="product-categories/electronics.php" method="POST">
+          <input type="hidden" name="category" value="electronics">
+          <button
           class="bg-blue-500 text-white font-semibold py-2 px-6 rounded-full shadow-md hover:text-black hover:shadow-lg focus:ring-2 focus:ring-blue-400 focus:outline-none transition-all">
           Explore Now
         </button>
-      </a>
+      </form>
     </div>
   </div>
 
@@ -1189,12 +1006,14 @@ setInterval(nextSlide, 6000);
     <div class="text-center">
       <h2 class="text-lg font-semibold text-gray-800 mb-2">Grocery</h2>
       <p class="text-sm text-gray-600 mb-4">Shop for fresh groceries and essentials online.</p>
-      <a href="grocery/grocery.html">
-        <button
-          class="bg-green-500 text-white font-semibold py-2 px-6 rounded-full shadow-md hover:text-black hover:shadow-lg focus:ring-2 focus:ring-green-400 focus:outline-none transition-all">
+      <!-- Form for POST request -->
+      <form action="product-categories/grocery.php" method="POST">
+          <input type="hidden" name="category" value="grocery">
+          <button
+          class="bg-blue-500 text-white font-semibold py-2 px-6 rounded-full shadow-md hover:text-black hover:shadow-lg focus:ring-2 focus:ring-blue-400 focus:outline-none transition-all">
           Explore Now
         </button>
-      </a>
+      </form>
     </div>
   </div>
 
@@ -1213,12 +1032,14 @@ setInterval(nextSlide, 6000);
     <div class="text-center">
       <h2 class="text-lg font-semibold text-gray-800 mb-2">Automobile</h2>
       <p class="text-sm text-gray-600 mb-4">Find premium car accessories and parts for your ride.</p>
-      <a href="automobile/auto.html">
-        <button
-          class="bg-yellow-500 text-white font-semibold py-2 px-6 rounded-full shadow-md hover:text-black hover:shadow-lg focus:ring-2 focus:ring-yellow-400 focus:outline-none transition-all">
+      <!-- Form for POST request -->
+      <form action="product-categories/automobileproducts.php" method="POST">
+          <input type="hidden" name="category" value="automobile">
+          <button
+          class="bg-blue-500 text-white font-semibold py-2 px-6 rounded-full shadow-md hover:text-black hover:shadow-lg focus:ring-2 focus:ring-blue-400 focus:outline-none transition-all">
           Explore Now
         </button>
-      </a>
+      </form>
     </div>
   </div>
 
@@ -1235,12 +1056,14 @@ setInterval(nextSlide, 6000);
     <div class="text-center">
       <h2 class="text-lg font-semibold text-gray-800 mb-2">Stationary</h2>
       <p class="text-sm text-gray-600 mb-4">Explore a wide variety of stationary products for school and office.</p>
-      <a href="stationary/statinaryproducts.html">
-        <button
-          class="bg-green-500 text-white font-semibold py-2 px-6 rounded-full shadow-md hover:text-black hover:shadow-lg focus:ring-2 focus:ring-green-400 focus:outline-none transition-all">
+      <!-- Form for POST request -->
+      <form action="product-categories/statinaryproducts.php" method="POST">
+          <input type="hidden" name="category" value="stationary">
+          <button
+          class="bg-blue-500 text-white font-semibold py-2 px-6 rounded-full shadow-md hover:text-black hover:shadow-lg focus:ring-2 focus:ring-blue-400 focus:outline-none transition-all">
           Explore Now
         </button>
-      </a>
+      </form>
     </div>
   </div>
 </div>
