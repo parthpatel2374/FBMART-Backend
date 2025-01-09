@@ -1,0 +1,45 @@
+To initialize Git in a local folder and connect it to your online repository, navigate to the desired folder in your terminal, run git init to initialize a local Git repository, then use git remote add origin <your_repo_url> to link your local repo to the online one, where <your_repo_url> is the URL of your online repository on platforms like GitHub or GitLab. 
+
+Steps in detail:
+	1	Open your terminal and navigate to the project folder:
+	◦	cd /path/to/your/project_folder 
+	2	Initialize a local Git repository:
+	◦	git init 
+	3	Add a remote repository:
+	
+	◦	git remote add origin <your_repo_url> 
+	◦	git clone <url>
+	◦	Explanation:
+	▪	git remote add: This command adds a new remote repository to your local Git project. 
+	▪	origin: This is a common name used to refer to your primary remote repository. 
+	▪	<your_repo_url>: Paste the URL of your online repository here. 
+
+Important points to remember:
+	•	Verify the remote:
+	◦	To check if the remote was added correctly, run git remote -v. 
+	•	Pushing changes to the remote:
+	◦	Once you have made changes to your local files, add them to the staging area using git add . 
+	◦	Commit your changes with a descriptive message using git commit -m "Your commit message". 
+	◦	Push your changes to the remote repository using git push origin <branch_name>. 
+
+To make any new feature:
+	- Initially you are in main branch,
+	- create a new branch, using git branch <branch_name>
+	- git checkout <branch_name>
+	- Feature completed, then perform following commands_
+		- git add . [ . means everything, else write file names]
+		- to undo added file use git reset <file_name>
+		- git commit -m “your message” — will stay in your local only
+		- git push origin <branch_name> (if already in the branch- can use git push )
+
+
+#[Quick Answer]
+You have many alternatives, for example:
+	•	Alternative 1: git rebase -i <YourCommitId>~1
+	•	Change YourCommitId for the number of the commit which you want to revert back to.
+	•	Alternative 2: git reset --hard YourCommitId
+	•	 git push <origin> <branch> --force
+	•	Change YourCommitId for the number of the commit which you want to revert back to.I don't recommend this option because you may lose your in progress work.
+	•	Alternative 3: git reset --soft <commit_id>
+	•	Always use this.You can keep your work and only undo the commit.
+
