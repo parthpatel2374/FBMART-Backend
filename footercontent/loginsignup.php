@@ -27,9 +27,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['signup'])) {
         if ($result->num_rows > 0) {
             $message = "Username or Email already exists!";
         } else {
-            // Insert new user into the database
-            $stmt = $conn->prepare("INSERT INTO login_user (username, email, password) VALUES (?, ?, ?)");
-            $stmt->bind_param("sss", $user, $email, $password);
+            // Generate the unique user ID
+            $result = $conn->query("SELECT MAX(CAST(SUBSTRING(user_id, 4) AS UNSIGNED)) AS max_id FROM login_user");
+            $row = $result->fetch_assoc();
+            $nextId = $row['max_id'] ? $row['max_id'] + 1 : 1; // Start with 1 if no users exist
+            $uniqueUserId = "FBU" . str_pad($nextId, 7, "0", STR_PAD_LEFT);
+
+
+            // Insert new user into the database after generating the unique user ID
+            $stmt = $conn->prepare("INSERT INTO login_user (user_id, username, email, password) VALUES (?, ?, ?, ?)");
+            $stmt->bind_param("ssss", $uniqueUserId, $user, $email, $password);
+
+            // // Insert new user into the database
+            // $stmt = $conn->prepare("INSERT INTO login_user (username, email, password) VALUES (?, ?, ?)");
+            // $stmt->bind_param("sss", $user, $email, $password);
 
             if ($stmt->execute()) {
                 $message = "Registration successful!";
